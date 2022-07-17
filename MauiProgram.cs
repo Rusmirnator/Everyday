@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
 namespace Everyday.GUI;
@@ -14,12 +15,9 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
-
-        var config = 
-            new ConfigurationBuilder()
-                .AddJsonStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("Everyday.appsettings.json"))
-                    .Build();
+            })
+            .Configuration
+            .AddJsonFile(new EmbeddedFileProvider(Assembly.GetExecutingAssembly()), "appsettings.json", optional: false, false);
 
         return builder.Build();
     }
