@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Everyday.Services.Interfaces;
+using Everyday.Services.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
@@ -19,6 +21,15 @@ public static class MauiProgram
             .Configuration
             .AddJsonFile(new EmbeddedFileProvider(Assembly.GetExecutingAssembly()), "appsettings.json", optional: false, false);
 
+        ConfigureServices(builder.Services);
+
         return builder.Build();
+    }
+
+    private static void ConfigureServices(IServiceCollection services)
+    {
+        services.AddLogging()
+                .AddTransient<MainPage>()
+                .AddSingleton<ICryptographyService, CryptographyService>();
     }
 }

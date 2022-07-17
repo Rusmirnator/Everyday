@@ -1,15 +1,19 @@
-﻿namespace Everyday.GUI;
+﻿using Everyday.Services.Interfaces;
+
+namespace Everyday.GUI;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    private readonly ICryptographyService cryptoService;
+    int count = 0;
 
-	public MainPage()
+    public MainPage(ICryptographyService cryptoService)
 	{
 		InitializeComponent();
-	}
+        this.cryptoService = cryptoService;
+    }
 
-	private void OnCounterClicked(object sender, EventArgs e)
+    private void OnCounterClicked(object sender, EventArgs e)
 	{
 		count++;
 
@@ -18,7 +22,8 @@ public partial class MainPage : ContentPage
 		else
 			CounterBtn.Text = $"Clicked {count} times";
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
+		SemanticScreenReader.Announce(cryptoService.Decrypt("X7Pvr0q2QKKFbTZfgTbmyQ=="));
+		SemanticScreenReader.Announce(cryptoService.Encrypt("testPassword"));
 	}
 }
 

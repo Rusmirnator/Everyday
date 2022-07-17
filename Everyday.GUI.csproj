@@ -69,4 +69,8 @@
 	  <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.7" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Everyday.Services\Everyday.Services.csproj" />
+	</ItemGroup>
+
 </Project>
