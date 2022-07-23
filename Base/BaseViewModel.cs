@@ -1,10 +1,14 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public ICommand InitCommand { get; set; }
+        protected BaseViewModel ParentViewModel { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected T GetValue<T>([CallerMemberName] string propertyName = "") where T : class

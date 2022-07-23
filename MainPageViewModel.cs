@@ -18,14 +18,16 @@ namespace Everyday.GUI
         public MainPageViewModel(IHttpClientService http)
         {
             LoginCommand = new Command(async () => await LoginAsync());
+            InitCommand = new Command(async () => await InitAsync());
             this.http = http;
         }
 
-        public MainPageViewModel()
+        private static async Task InitAsync()
         {
-            LoginCommand = new Command(async () => await LoginAsync());
-            http = new HttpClientService("https://localhost:44318/");
+            await Task.Yield();
+            System.Diagnostics.Debug.WriteLine("MainPageViewModelInitialized");
         }
+
         private async Task LoginAsync()
         {
             var token = await http.Create("api/Home/login?login=admin&password=testPassword").PostCallAsync();

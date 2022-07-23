@@ -1,4 +1,5 @@
-﻿using Everyday.Services.Interfaces;
+﻿using Everyday.GUI.Base;
+using Everyday.Services.Interfaces;
 using Everyday.Services.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
@@ -22,6 +23,7 @@ public static class MauiProgram
             .AddJsonFile(new EmbeddedFileProvider(Assembly.GetExecutingAssembly()), "appsettings.json", optional: false, false);
 
         ConfigureServices(builder.Services);
+        ConfigureServiceProvider(builder.Services);
 
         return builder.Build();
     }
@@ -29,8 +31,18 @@ public static class MauiProgram
     private static void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging()
+                .AddSingleton<MainPageViewModel>()
                 .AddSingleton<MainPage>()
-                .AddSingleton<IHttpClientService,HttpClientService>(provider => new("https://localhost:44318/"))
+                .AddSingleton<IHttpClientService, HttpClientService>(provider => new("https://localhost:44318/"))
                 .AddSingleton<ICryptographyService, CryptographyService>();
+    }
+
+    private static void ConfigureServiceProvider(IServiceCollection services)
+    {
+        IServiceProvider provider = services.BuildServiceProvider();
+        DependencyInjectoinSource.Resolver = (Type) =>
+        {
+            return provider.GetRequiredService(Type);
+        };
     }
 }

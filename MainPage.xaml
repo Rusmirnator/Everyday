@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Everyday.GUI"
+             xmlns:base="clr-namespace:Everyday.GUI.Base"
+             Loaded="ContentPage_Loaded"
              x:Class="Everyday.GUI.MainPage">
     <ContentPage.BindingContext>
-        <local:MainPageViewModel/>
+        <base:DependencyInjectoinSource Type="{x:Type local:MainPageViewModel}" />
     </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout 
