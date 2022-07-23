@@ -29,7 +29,8 @@ public static class MauiProgram
     private static void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging()
-                .AddTransient<MainPage>()
+                .AddSingleton<MainPage>()
+                .AddSingleton<IHttpClientService,HttpClientService>(provider => new("https://localhost:44318/"))
                 .AddSingleton<ICryptographyService, CryptographyService>();
     }
 }
