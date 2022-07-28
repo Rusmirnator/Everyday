@@ -33,7 +33,8 @@ public static class MauiProgram
         services.AddLogging()
                 .AddSingleton<MainPageViewModel>()
                 .AddSingleton<MainPage>()
-                .AddSingleton<IHttpClientService, HttpClientService>(provider => new("https://localhost:44318/"))
+                .AddSingleton<IHttpClientService, HttpClientService>()
+                .AddSingleton<IAuthorizationService, AuthorizationService>()
                 .AddSingleton<ICryptographyService, CryptographyService>();
     }
 

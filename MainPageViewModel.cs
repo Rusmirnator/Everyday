@@ -1,27 +1,54 @@
 ﻿using Everyday.GUI.Base;
 using Everyday.Services.Interfaces;
-using Everyday.Services.Services;
 using System.Windows.Input;
 
 namespace Everyday.GUI
 {
     public class MainPageViewModel : BaseViewModel
     {
+        #region Fields & Properties
         private string login;
         private string password;
-        private readonly IHttpClientService http;
+        private readonly IAuthorizationService authorizationService;
+        private readonly IHttpClientService httpClientService;
 
-        public string Login { get { return GetValue<string>(); } set { _ = SetValue(ref login, value); } }
-        public string Password { get { return GetValue<string>(); } set { _ = SetValue(ref password, value); } }
-        public ICommand LoginCommand { get; set; }
-
-        public MainPageViewModel(IHttpClientService http)
+        public string Login
         {
-            LoginCommand = new Command(async () => await LoginAsync());
+            get { return GetValue<string>(ref login); }
+            set
+            {
+                if (SetValue(ref login, value))
+                {
+                    (LoginCommand as Command).ChangeCanExecute();
+                }
+            }
+        }
+        public string Password
+        {
+            get { return GetValue<string>(ref password); }
+            set
+            {
+                if (SetValue(ref password, value))
+                {
+                    (LoginCommand as Command).ChangeCanExecute();
+                }
+            }
+        }
+        public ICommand LoginCommand { get; set; }
+        #endregion
+
+        #region CTOR
+        public MainPageViewModel(IAuthorizationService authorizationService, IHttpClientService httpClientService)
+        {
+            LoginCommand = new Command(async () => await LoginAsync(), () => CanLogin());
             InitCommand = new Command(async () => await InitAsync());
-            this.http = http;
+            this.authorizationService = authorizationService;
+            this.httpClientService = httpClientService;
         }
 
+        #endregion
+
+        #region Commands
         private static async Task InitAsync()
         {
             await Task.Yield();
@@ -30,7 +57,26 @@ namespace Everyday.GUI
 
         private async Task LoginAsync()
         {
-            var token = await http.Create("api/Home/login?login=admin&password=testPassword").PostCallAsync();
+            HttpResponseMessage response =
+                await httpClientService
+                        .CreateUnauthorized($"api/Home/login?login={Login}&password={Password}")
+                            .PostCallAsync();
+
+            if (response?.IsSuccessStatusCode is not true)
+            {
+                await AnnounceAsync("Error", response.ReasonPhrase, "Ok");
+                return;
+            }
+            await authorizationService.AcquireCredentialsAsync(response);
+            INavigation s = new Navigation();
         }
+        #endregion
+
+        #region CanExecute
+        private bool CanLogin()
+        {
+            return !string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password);
+        }
+        #endregion
     }
 }

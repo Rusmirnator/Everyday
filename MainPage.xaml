@@ -13,19 +13,18 @@
             Spacing="25" 
             Padding="30,0" 
             VerticalOptions="Center">
-
-            <Editor x:Name="loginTE" Text="{Binding Login}" />
-            <Editor x:Name="passwordTE" Text="{Binding Password, UpdateSourceEventName=PropertyChanged}"/>
-
-            <Button 
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+            <Editor x:Name="loginTE" 
+                    Text="{Binding Login}" 
+                    WidthRequest="100"/>
+            <Editor x:Name="passwordTE" 
+                    Text="{Binding Password}" 
+                    WidthRequest="100"/>
+            <Button x:Name="LoginBtn"
+                Text="Login"
+                SemanticProperties.Hint="Let's you login into EveryDay using provided credentials."
                 Command="{Binding LoginCommand}"
                 HorizontalOptions="Center" />
-
         </VerticalStackLayout>
     </ScrollView>
- 
+
 </ContentPage>
