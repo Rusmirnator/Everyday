@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Everyday.GUI.Pages.Views.Error"
+             xmlns:viewModels="clr-namespace:Everyday.GUI.Pages.ViewModels"
+             xmlns:base="clr-namespace:Everyday.GUI.Base"
+             Title="Error">
+    <ContentPage.BindingContext>
+        <base:DependencyInjectoinSource Type="{x:Type viewModels:ErrorViewModel}" />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Label 
+            Text="Page not implemented yet or route invalid!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

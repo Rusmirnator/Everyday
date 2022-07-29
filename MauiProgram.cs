@@ -48,7 +48,10 @@ public static class MauiProgram
     private static IServiceCollection AddViewModels(this IServiceCollection services)
     {
         return services.AddSingleton<MainPageViewModel>()
-                       .AddSingleton<MenuViewModel>();
+                       .AddSingleton<MenuViewModel>()
+                       .AddSingleton<ErrorViewModel>()
+                       .AddSingleton<PurchasesViewModel>()
+                       .AddSingleton<ScannerViewModel>();
     }
 
     private static IServiceCollection AddServices(this IServiceCollection services)

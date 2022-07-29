@@ -9,9 +9,9 @@
         <base:DependencyInjectoinSource Type="{x:Type viewModels:MenuViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
-        <Label 
-            Text="Menu content here"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Button Text="Purchases" Command="{Binding NavigateCommand}" CommandParameter="Purchases" />
+        <Button Text="Alerts" Command="{Binding NavigateCommand}" CommandParameter="Alerts" />
+        <Button Text="Inventory" Command="{Binding NavigateCommand}" CommandParameter="Inventory" />
+        <Button Text="Finance" Command="{Binding NavigateCommand}" CommandParameter="Finance" />
     </VerticalStackLayout>
 </ContentPage>

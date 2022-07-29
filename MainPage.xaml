@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Everyday.GUI"
              xmlns:base="clr-namespace:Everyday.GUI.Base"
              Loaded="ContentPage_Loaded"
+             BackgroundColor="AliceBlue"
              x:Class="Everyday.GUI.MainPage">
     <ContentPage.BindingContext>
         <base:DependencyInjectoinSource Type="{x:Type local:MainPageViewModel}" />
@@ -15,10 +16,10 @@
             VerticalOptions="Center">
             <Editor x:Name="loginTE" 
                     Text="{Binding Login}" 
-                    WidthRequest="100"/>
+                    MinimumWidthRequest="100"/>
             <Editor x:Name="passwordTE" 
                     Text="{Binding Password}" 
-                    WidthRequest="100"/>
+                    MinimumWidthRequest="100"/>
             <Button x:Name="LoginBtn"
                 Text="Login"
                 SemanticProperties.Hint="Let's you login into EveryDay using provided credentials."
@@ -26,5 +27,4 @@
                 HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
