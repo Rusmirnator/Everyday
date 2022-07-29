@@ -1,4 +1,4 @@
-namespace Everyday.GUI.Pages.Menu;
+namespace Everyday.GUI.Pages.Views;
 
 public partial class Menu : ContentPage
 {

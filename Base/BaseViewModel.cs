@@ -58,6 +58,13 @@ namespace Everyday.GUI.Base
         }
         #endregion
 
+        #region Navigation
+        protected static async Task GoToPageAsync(string route)
+        {
+            await Shell.Current.GoToAsync(route);
+        }
+        #endregion
+
         #endregion
     }
 }

@@ -68,7 +68,7 @@ namespace Everyday.GUI
                 return;
             }
             await authorizationService.AcquireCredentialsAsync(response);
-            INavigation s = new Navigation();
+            await Shell.Current.GoToAsync("Menu");
         }
         #endregion
 

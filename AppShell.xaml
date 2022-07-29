@@ -4,17 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Everyday.GUI"
-    xmlns:menu="clr-namespace:Everyday.GUI.Pages.Menu"
+    xmlns:views="clr-namespace:Everyday.GUI.Pages.Views"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
+        Title="Login"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />    
-    
+        Route="MainPage" />
+
     <ShellContent
         Title="Main menu"
-        ContentTemplate="{DataTemplate menu:Menu}"
-        Route="MenuPage" />
-
+        ContentTemplate="{DataTemplate views:Menu}"
+        Route="Menu" />
 </Shell>

@@ -1,4 +1,5 @@
 ﻿using Everyday.GUI.Base;
+using Everyday.GUI.Pages.ViewModels;
 using Everyday.Services.Interfaces;
 using Everyday.Services.Services;
 using Microsoft.Extensions.Configuration;
@@ -31,11 +32,8 @@ public static class MauiProgram
     private static void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging()
-                .AddSingleton<MainPageViewModel>()
-                .AddSingleton<MainPage>()
-                .AddSingleton<IHttpClientService, HttpClientService>()
-                .AddSingleton<IAuthorizationService, AuthorizationService>()
-                .AddSingleton<ICryptographyService, CryptographyService>();
+                .AddViewModels()
+                .AddServices();
     }
 
     private static void ConfigureServiceProvider(IServiceCollection services)
@@ -45,5 +43,18 @@ public static class MauiProgram
         {
             return provider.GetRequiredService(Type);
         };
+    }
+
+    private static IServiceCollection AddViewModels(this IServiceCollection services)
+    {
+        return services.AddSingleton<MainPageViewModel>()
+                       .AddSingleton<MenuViewModel>();
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        return services.AddSingleton<IHttpClientService, HttpClientService>()
+                       .AddSingleton<IAuthorizationService, AuthorizationService>()
+                       .AddSingleton<ICryptographyService, CryptographyService>();
     }
 }
