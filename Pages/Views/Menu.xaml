@@ -6,7 +6,7 @@
              xmlns:base="clr-namespace:Everyday.GUI.Base"
              Title="Menu">
     <ContentPage.BindingContext>
-        <base:DependencyInjectoinSource Type="{x:Type viewModels:MenuViewModel}" />
+        <base:DependencyInjectionSource Type="{x:Type viewModels:MenuViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Button Text="Purchases" Command="{Binding NavigateCommand}" CommandParameter="Purchases" />

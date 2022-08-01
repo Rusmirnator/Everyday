@@ -7,7 +7,7 @@
              BackgroundColor="AliceBlue"
              x:Class="Everyday.GUI.MainPage">
     <ContentPage.BindingContext>
-        <base:DependencyInjectoinSource Type="{x:Type local:MainPageViewModel}" />
+        <base:DependencyInjectionSource Type="{x:Type local:MainPageViewModel}" />
     </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout 

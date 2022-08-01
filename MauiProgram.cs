@@ -39,7 +39,7 @@ public static class MauiProgram
     private static void ConfigureServiceProvider(IServiceCollection services)
     {
         IServiceProvider provider = services.BuildServiceProvider();
-        DependencyInjectoinSource.Resolver = (Type) =>
+        DependencyInjectionSource.Resolver = (Type) =>
         {
             return provider.GetRequiredService(Type);
         };

@@ -6,7 +6,7 @@
              xmlns:base="clr-namespace:Everyday.GUI.Base"
              Title="Error">
     <ContentPage.BindingContext>
-        <base:DependencyInjectoinSource Type="{x:Type viewModels:ErrorViewModel}" />
+        <base:DependencyInjectionSource Type="{x:Type viewModels:ErrorViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label 

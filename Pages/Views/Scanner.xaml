@@ -6,7 +6,7 @@
              xmlns:base="clr-namespace:Everyday.GUI.Base"
              Title="Scanner">
     <ContentPage.BindingContext>
-        <base:DependencyInjectoinSource Type="{x:Type viewModels:ScannerViewModel}" />
+        <base:DependencyInjectionSource Type="{x:Type viewModels:ScannerViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Button Text="Take photo" Command="{Binding TakePhotoCommand}"/>
