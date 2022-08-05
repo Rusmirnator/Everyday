@@ -5,6 +5,7 @@ using Everyday.Services.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
+using ZXing.Net.Maui;
 
 namespace Everyday.GUI;
 
@@ -15,6 +16,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseBarcodeReader()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -39,9 +41,9 @@ public static class MauiProgram
     private static void ConfigureServiceProvider(IServiceCollection services)
     {
         IServiceProvider provider = services.BuildServiceProvider();
-        DependencyInjectionSource.Resolver = (Type) =>
+        DependencyInjectionSource.Resolver = (type) =>
         {
-            return provider.GetRequiredService(Type);
+            return provider.GetRequiredService(type);
         };
     }
 
