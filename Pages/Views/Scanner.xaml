@@ -7,7 +7,7 @@
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI"
              Title="Scanner">
     <ContentPage.BindingContext>
-        <base:DependencyInjectionSource Type="{x:Type viewModels:ScannerViewModel}"/>
+        <base:DependencyInjectionSource Type="{x:Type viewModels:ScannerViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <zxing:CameraBarcodeReaderView 
@@ -19,5 +19,7 @@
                                      Command="{Binding GetItemByBarcodeCommand}"/>
             </zxing:CameraBarcodeReaderView.Behaviors>
         </zxing:CameraBarcodeReaderView>
+        <Button Text="Execute" Command="{Binding ExecuteCommand}"/>
+        <Button Text="XExecute" Command="{x:Binding ExecuteCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
