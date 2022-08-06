@@ -1,41 +1,32 @@
 ﻿using Everyday.GUI.Base;
-using Everyday.GUI.Utilities;
+using Microsoft.Extensions.Logging;
 using System.Windows.Input;
 
 namespace Everyday.GUI.Pages.ViewModels
 {
     public class ScannerViewModel : BaseViewModel
     {
-        public ICommand TakePhotoCommand { get; set; }
+        private readonly ILogger logger;
+
+        public ICommand GetItemByBarcodeCommand { get; set; }
         public ICommand ExecuteCommand { get; set; }
 
-        public ScannerViewModel()
+        public ScannerViewModel(ILogger logger)
         {
-            TakePhotoCommand = new Command(() => TakePhotoAsync());
+            GetItemByBarcodeCommand = new Command(() => GetItemByBarcodeAsync());
             ExecuteCommand = new Command(() => Execute());
+            this.logger = logger;
         }
-        public static async void TakePhotoAsync()
+        public async void GetItemByBarcodeAsync()
         {
-            if (MediaPicker.Default.IsCaptureSupported)
-            {
-                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+            logger.Log(LogLevel.Debug, "GetItemByBarcodeAsync()");
 
-                if (photo != null)
-                {
-                    //string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-
-                    //using Stream sourceStream = await photo.OpenReadAsync();
-                    //using FileStream localFileStream = File.OpenWrite(localFilePath);
-
-                    //await sourceStream.CopyToAsync(localFileStream);
-                    await BarcodeScanner.ReadAsync(photo);
-                }
-            }
+            await Task.CompletedTask;
         }
 
-        private static void Execute()
+        private void Execute()
         {
-            Console.WriteLine("Executed command form behavior!");
+            logger.Log(LogLevel.Debug, "Execute()");
         }
     }
 }

@@ -61,6 +61,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Authorization\" />
+	  <Folder Include="Utilities\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -72,6 +73,7 @@
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

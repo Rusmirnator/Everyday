@@ -3,6 +3,7 @@ using Everyday.GUI.Pages.ViewModels;
 using Everyday.Services.Interfaces;
 using Everyday.Services.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 using ZXing.Net.Maui;
@@ -33,9 +34,12 @@ public static class MauiProgram
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddLogging()
-                .AddViewModels()
-                .AddServices();
+        services.AddLogging(configure => 
+        {
+            configure.AddDebug();
+        })
+        .AddViewModels()
+        .AddServices();
     }
 
     private static void ConfigureServiceProvider(IServiceCollection services)

@@ -11,9 +11,13 @@
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <zxing:CameraBarcodeReaderView 
-            x:Name="BarcodeReader"
-            BindingContextChanged="OnBarcodeDetected">
+            x:Name="BarcodeReader">
+            <zxing:CameraBarcodeReaderView.Behaviors>
+                <base:EventToCommand EventName="Loaded"
+                                     Command="{Binding ExecuteCommand}"/>
+                <base:EventToCommand EventName="BarcodesDetected"
+                                     Command="{Binding GetItemByBarcodeCommand}"/>
+            </zxing:CameraBarcodeReaderView.Behaviors>
         </zxing:CameraBarcodeReaderView>
-        <Button Text="Take photo" Command="{Binding TakePhotoCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
