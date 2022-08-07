@@ -35,12 +35,9 @@ public static class MauiProgram
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddLogging(configure => 
-        {
-            configure.AddDebug();
-        })
-        .AddViewModels()
-        .AddServices();
+        services.AddLogging()
+                .AddViewModels()
+                .AddServices();
     }
 
     private static void ConfigureServiceProvider(IServiceCollection services)

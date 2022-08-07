@@ -1,4 +1,5 @@
 ﻿using Everyday.GUI.Base;
+using Everyday.Services.Services;
 using Microsoft.Extensions.Logging;
 using System.Windows.Input;
 
@@ -6,12 +7,12 @@ namespace Everyday.GUI.Pages.ViewModels
 {
     public class ScannerViewModel : BaseViewModel
     {
-        private readonly ILogger logger;
+        private readonly ILogger<ScannerViewModel> logger;
 
         public ICommand GetItemByBarcodeCommand { get; set; }
         public ICommand ExecuteCommand { get; set; }
 
-        public ScannerViewModel(ILogger logger)
+        public ScannerViewModel(ILogger<ScannerViewModel> logger)
         {
             GetItemByBarcodeCommand = new Command(() => GetItemByBarcodeAsync());
             ExecuteCommand = new Command(() => Execute());
@@ -19,14 +20,13 @@ namespace Everyday.GUI.Pages.ViewModels
         }
         public async void GetItemByBarcodeAsync()
         {
-            logger.Log(LogLevel.Debug, "GetItemByBarcodeAsync()");
-
+            logger.LogTrace("ScannerViewModel.GetItemByBarcodeAsync()");
             await Task.CompletedTask;
         }
 
         private void Execute()
         {
-            logger.Log(LogLevel.Debug, "Execute()");
+            logger.LogTrace("ScannerViewModel.Execute()");
         }
     }
 }
