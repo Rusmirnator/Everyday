@@ -4,21 +4,11 @@
              x:Class="Everyday.GUI.Pages.Views.Scanner"
              xmlns:viewModels="clr-namespace:Everyday.GUI.Pages.ViewModels"
              xmlns:base="clr-namespace:Everyday.GUI.Base"
-             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI"
              Title="Scanner">
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type viewModels:ScannerViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
-        <zxing:CameraBarcodeReaderView 
-            x:Name="BarcodeReader">
-            <zxing:CameraBarcodeReaderView.Behaviors>
-                <base:EventToCommand EventName="Loaded"
-                                     Command="{Binding ExecuteCommand}"/>
-                <base:EventToCommand EventName="BarcodesDetected"
-                                     Command="{Binding GetItemByBarcodeCommand}"/>
-            </zxing:CameraBarcodeReaderView.Behaviors>
-        </zxing:CameraBarcodeReaderView>
         <Button Text="Execute" Command="{Binding ExecuteCommand}"/>
         <Button Text="XExecute" Command="{x:Binding ExecuteCommand}"/>
     </VerticalStackLayout>

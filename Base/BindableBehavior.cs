@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Everyday.GUI.Base
+﻿namespace Everyday.GUI.Base
 {
     public class BindableBehavior<T> : Behavior<T> where T : BindableObject
     {

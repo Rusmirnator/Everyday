@@ -57,19 +57,18 @@ namespace Everyday.GUI
 
         private async Task LoginAsync()
         {
-#if !ANDROID
             HttpResponseMessage response =
                 await httpClientService
-                        .CreateUnauthorized($"api/Home/login?login={Login}&password={Password}")
+                        .CreateUnauthorized($"Home/login?login={Login}&password={Password}")
                             .PostCallAsync();
 
             if (response?.IsSuccessStatusCode is not true)
             {
-                await AnnounceAsync("Error", response.ReasonPhrase, "Ok");
+                await AnnounceAsync("Error", response?.ReasonPhrase, "Ok");
                 return;
             }
             await authorizationService.AcquireCredentialsAsync(response);
-#endif
+
             await Shell.Current.GoToAsync("Menu");
         }
         #endregion

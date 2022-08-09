@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type viewModels:MenuViewModel}" />
     </ContentPage.BindingContext>
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="5,20,3,5">
         <Button Text="Purchases" Command="{Binding NavigateCommand}" CommandParameter="Purchases" />
         <Button Text="Alerts" Command="{Binding NavigateCommand}" CommandParameter="Alerts" />
         <Button Text="Inventory" Command="{Binding NavigateCommand}" CommandParameter="Inventory" />

@@ -9,6 +9,7 @@
         <base:DependencyInjectionSource Type="{x:Type viewModels:PurchasesViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
+        
         <Button Text="Scan" Command="{Binding OpenScannerCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -3,11 +3,8 @@ using Everyday.GUI.Pages.ViewModels;
 using Everyday.Services.Interfaces;
 using Everyday.Services.Services;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
-using ZXing.Net.Maui;
-using ZXing.Net.Maui.Readers;
 
 namespace Everyday.GUI;
 
@@ -18,7 +15,6 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseBarcodeReader()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -63,19 +59,5 @@ public static class MauiProgram
         return services.AddSingleton<IHttpClientService, HttpClientService>()
                        .AddSingleton<IAuthorizationService, AuthorizationService>()
                        .AddSingleton<ICryptographyService, CryptographyService>();
-    }
-
-    public static MauiAppBuilder UseBarcodeReader(this MauiAppBuilder builder)
-    {
-        builder.ConfigureMauiHandlers(handlers =>
-        {
-            handlers.AddHandler(typeof(ICameraView), typeof(CameraViewHandler));
-            handlers.AddHandler(typeof(ICameraBarcodeReaderView), typeof(CameraBarcodeReaderViewHandler));
-            handlers.AddHandler(typeof(IBarcodeGeneratorView), typeof(BarcodeGeneratorViewHandler));
-        });
-
-        builder.Services.AddTransient<IBarcodeReader, ZXingBarcodeReader>();
-
-        return builder;
     }
 }

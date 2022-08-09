@@ -1,5 +1,4 @@
 ﻿using Everyday.GUI.Base;
-using Everyday.Services.Services;
 using Microsoft.Extensions.Logging;
 using System.Windows.Input;
 
