@@ -9,7 +9,38 @@
         <base:DependencyInjectionSource Type="{x:Type viewModels:PurchasesViewModel}" />
     </ContentPage.BindingContext>
     <VerticalStackLayout>
-        
-        <Button Text="Scan" Command="{Binding OpenScannerCommand}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <HorizontalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
+                <Editor Text="{Binding SearchTerm, UpdateSourceEventName=PropertyChanged}" 
+                        Placeholder="Search by name or code..."
+                        PlaceholderColor="Violet"
+                        Grid.Column="0"
+                        HorizontalOptions="StartAndExpand"
+                        Margin="0,3,3,0" />
+                <Button Text="Scan" 
+                        Command="{Binding OpenScannerCommand}" 
+                        HorizontalOptions="End"
+                        Grid.Column="1"/>
+            </HorizontalStackLayout>
+            <AbsoluteLayout Grid.Row="1" Grid.ColumnSpan="2">
+                <ListView ItemsSource="{Binding Items}" 
+                          SelectedItem="{Binding SelectedItem}"
+                          IsPullToRefreshEnabled="True"
+                          HorizontalOptions="StartAndExpand">
+                    <ListView.Behaviors>
+                        <base:EventToCommand EventName="ItemSelected"
+                                             Command="{Binding AlterItemCommand}"/>
+                    </ListView.Behaviors>
+                </ListView>
+            </AbsoluteLayout>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

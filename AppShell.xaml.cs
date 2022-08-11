@@ -16,5 +16,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(Error), typeof(Error));
         Routing.RegisterRoute(nameof(Purchases), typeof(Purchases));
         Routing.RegisterRoute(nameof(Scanner), typeof(Scanner));
+        Routing.RegisterRoute(nameof(ItemEditor), typeof(ItemEditor));
     }
 }
