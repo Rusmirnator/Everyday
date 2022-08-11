@@ -23,6 +23,13 @@ namespace Everyday.GUI.Base
 
         #region Public API
 
+        #region PropertyChanged
+        protected void RaisePropertyChanged(string name)
+        {
+            OnPropertyChanged(name);
+        }
+        #endregion
+
         #region Setters & Getters
         protected static T GetValue<T>(ref T storage) where T : class
         {

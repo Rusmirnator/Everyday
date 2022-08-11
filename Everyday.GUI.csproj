@@ -76,6 +76,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Everyday.Data\Everyday.Data.csproj" />
 	  <ProjectReference Include="..\Everyday.Services\Everyday.Services.csproj" />
 	</ItemGroup>
 

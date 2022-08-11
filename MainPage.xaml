@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Everyday.GUI"
              xmlns:base="clr-namespace:Everyday.GUI.Base"
-             Loaded="ContentPage_Loaded"
              BackgroundColor="AliceBlue"
              x:Class="Everyday.GUI.MainPage">
     <ContentPage.BindingContext>
@@ -17,8 +16,9 @@
             <Editor x:Name="loginTE" 
                     Text="{Binding Login}" 
                     MinimumWidthRequest="100"/>
-            <Editor x:Name="passwordTE" 
-                    Text="{Binding Password}" 
+            <Entry x:Name="passwordTE" 
+                    Text="{Binding Password}"
+                    IsPassword="True"
                     MinimumWidthRequest="100"/>
             <Button x:Name="LoginBtn"
                 Text="Login"

@@ -1,4 +1,5 @@
 ﻿using Everyday.Core.Models;
+using Everyday.Data.Interfaces;
 using Everyday.GUI.Base;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -13,6 +14,15 @@ namespace Everyday.GUI.Pages.ViewModels
 
         private ObservableCollection<Item> items;
         private Item selectedItem;
+        private readonly IItemDataProvider dataProvider;
+
+        private string searchTerm;
+
+        public string SearchTerm
+        {
+            get { return GetValue(ref searchTerm); }
+            set { SetValue(ref searchTerm, value); }
+        }
 
         public ObservableCollection<Item> Items
         {
@@ -23,24 +33,31 @@ namespace Everyday.GUI.Pages.ViewModels
         public Item SelectedItem
         {
             get { return GetValue(ref selectedItem); }
-            set { _ = SetValue(ref selectedItem, value); }
+            set
+            {
+                if (SetValue(ref selectedItem, value))
+                {
+                    (AlterItemCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         #endregion
 
         #region CTOR
-        public PurchasesViewModel()
+        public PurchasesViewModel(IItemDataProvider dataProvider)
         {
             OpenScannerCommand = new Command(async () => await OpenScannerAsync());
-            AlterItemCommand = new Command(async () => await OpenItemEditorAsync());
+            AlterItemCommand = new Command(async () => await OpenItemEditorAsync(), () => CanAlterItem());
             InitCommand = new Command(async () => await GetItemsAsync());
+            this.dataProvider = dataProvider;
         }
         #endregion
 
         #region Commands
-        private static async Task GetItemsAsync()
+        private async Task GetItemsAsync()
         {
-            await Task.CompletedTask;
+            Items = new(await dataProvider.GetItemsAsync());
         }
         private static async Task OpenScannerAsync()
         {
@@ -56,6 +73,13 @@ namespace Everyday.GUI.Pages.ViewModels
 
         #region Private API
 
+        #endregion
+
+        #region CanExecute
+        public bool CanAlterItem()
+        {
+            return SelectedItem is not null;
+        }
         #endregion
     }
 }

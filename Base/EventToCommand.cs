@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
-    public class EventToCommand : BindableBehavior<View>
+    public class EventToCommand : BindableBehavior<BindableObject>
     {
         #region Fields & Properties
         private Delegate handler;
@@ -38,7 +38,7 @@ namespace Everyday.GUI.Base
         #endregion
 
         #region EventHandlers
-        protected override void OnAttachedTo(View bindable)
+        protected override void OnAttachedTo(BindableObject bindable)
         {
             base.OnAttachedTo(bindable);
 
@@ -52,7 +52,7 @@ namespace Everyday.GUI.Base
             AddEventHandler(eventInfo, AssociatedObject, OnEventFired);
         }
 
-        protected override void OnDetachingFrom(View bindable)
+        protected override void OnDetachingFrom(BindableObject bindable)
         {
             if (handler is not null)
             {

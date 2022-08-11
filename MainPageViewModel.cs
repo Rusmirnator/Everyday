@@ -14,7 +14,7 @@ namespace Everyday.GUI
 
         public string Login
         {
-            get { return GetValue<string>(ref login); }
+            get { return GetValue(ref login); }
             set
             {
                 if (SetValue(ref login, value))
@@ -25,7 +25,7 @@ namespace Everyday.GUI
         }
         public string Password
         {
-            get { return GetValue<string>(ref password); }
+            get { return GetValue(ref password); }
             set
             {
                 if (SetValue(ref password, value))
@@ -41,7 +41,6 @@ namespace Everyday.GUI
         public MainPageViewModel(IAuthorizationService authorizationService, IHttpClientService httpClientService)
         {
             LoginCommand = new Command(async () => await LoginAsync(), () => CanLogin());
-            InitCommand = new Command(async () => await InitAsync());
             this.authorizationService = authorizationService;
             this.httpClientService = httpClientService;
         }
@@ -49,12 +48,6 @@ namespace Everyday.GUI
         #endregion
 
         #region Commands
-        private static async Task InitAsync()
-        {
-            await Task.Yield();
-            System.Diagnostics.Debug.WriteLine("MainPageViewModelInitialized");
-        }
-
         private async Task LoginAsync()
         {
             HttpResponseMessage response =

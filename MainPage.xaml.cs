@@ -6,10 +6,5 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
     }
-
-    private void ContentPage_Loaded(object sender, EventArgs e)
-    {
-        (BindingContext as MainPageViewModel).InitCommand.Execute(null);
-    }
 }
 

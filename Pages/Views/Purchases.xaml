@@ -8,6 +8,10 @@
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type viewModels:PurchasesViewModel}" />
     </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <base:EventToCommand EventName="Loaded"
+                             Command="{Binding InitCommand}"/>
+    </ContentPage.Behaviors>
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -18,7 +22,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <HorizontalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
                 <Editor Text="{Binding SearchTerm, UpdateSourceEventName=PropertyChanged}" 
                         Placeholder="Search by name or code..."
                         PlaceholderColor="Violet"
@@ -30,17 +34,26 @@
                         HorizontalOptions="End"
                         Grid.Column="1"/>
             </HorizontalStackLayout>
-            <AbsoluteLayout Grid.Row="1" Grid.ColumnSpan="2">
+            <FlexLayout MinimumHeightRequest="200" 
+                        Grid.Row="1" 
+                        Grid.Column="0" 
+                        Grid.ColumnSpan="2">
                 <ListView ItemsSource="{Binding Items}" 
                           SelectedItem="{Binding SelectedItem}"
                           IsPullToRefreshEnabled="True"
                           HorizontalOptions="StartAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Name}"
+                                      Detail="{Binding Description}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                     <ListView.Behaviors>
                         <base:EventToCommand EventName="ItemSelected"
                                              Command="{Binding AlterItemCommand}"/>
                     </ListView.Behaviors>
                 </ListView>
-            </AbsoluteLayout>
+            </FlexLayout>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
