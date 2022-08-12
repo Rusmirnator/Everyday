@@ -12,30 +12,32 @@ namespace Everyday.GUI.Pages.ViewModels
         public ICommand OpenScannerCommand { get; set; }
         public ICommand AlterItemCommand { get; set; }
 
-        private ObservableCollection<Item> items;
-        private Item selectedItem;
         private readonly IItemDataProvider dataProvider;
-
-        private string searchTerm;
 
         public string SearchTerm
         {
-            get { return GetValue(ref searchTerm); }
-            set { SetValue(ref searchTerm, value); }
+            get { return GetValue<string>(); }
+            set { SetValue(value); }
         }
 
         public ObservableCollection<Item> Items
         {
-            get { return GetValue(ref items); }
-            set { _ = SetValue(ref items, value); }
+            get { return GetValue<ObservableCollection<Item>>(); }
+            set { _ = SetValue(value); }
+        }
+
+        public bool IsWaitIndicatorVisible
+        {
+            get { return GetValue<bool>(); }
+            set { _ = SetValue(value); }
         }
 
         public Item SelectedItem
         {
-            get { return GetValue(ref selectedItem); }
+            get { return GetValue<Item>(); }
             set
             {
-                if (SetValue(ref selectedItem, value))
+                if (SetValue(value))
                 {
                     (AlterItemCommand as Command).ChangeCanExecute();
                 }
@@ -50,6 +52,7 @@ namespace Everyday.GUI.Pages.ViewModels
             OpenScannerCommand = new Command(async () => await OpenScannerAsync());
             AlterItemCommand = new Command(async () => await OpenItemEditorAsync(), () => CanAlterItem());
             InitCommand = new Command(async () => await GetItemsAsync());
+            RefreshCommand = new Command(async () => await RefreshAsync());
             this.dataProvider = dataProvider;
         }
         #endregion
@@ -57,7 +60,11 @@ namespace Everyday.GUI.Pages.ViewModels
         #region Commands
         private async Task GetItemsAsync()
         {
-            Items = new(await dataProvider.GetItemsAsync());
+            IsWaitIndicatorVisible = true;
+
+            Items = new(await dataProvider.GetItemsAsync().ConfigureAwait(false));
+
+            IsWaitIndicatorVisible = false;
         }
         private static async Task OpenScannerAsync()
         {
@@ -68,6 +75,11 @@ namespace Everyday.GUI.Pages.ViewModels
         {
             //Pass selected item to EditorViewModel
             await GoToPageAsync("ItemEditor");
+        }
+
+        private async Task RefreshAsync()
+        {
+            await GetItemsAsync();
         }
         #endregion
 

@@ -38,7 +38,9 @@
                         Grid.Row="1" 
                         Grid.Column="0" 
                         Grid.ColumnSpan="2">
-                <ListView ItemsSource="{Binding Items}" 
+                <ListView ItemsSource="{Binding Items}"
+                          IsRefreshing="{Binding IsWaitIndicatorVisible, Mode=TwoWay}"
+                          RefreshCommand="{Binding RefreshCommand}"
                           SelectedItem="{Binding SelectedItem}"
                           IsPullToRefreshEnabled="True"
                           HorizontalOptions="StartAndExpand">

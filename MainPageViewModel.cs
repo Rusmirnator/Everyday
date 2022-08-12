@@ -1,6 +1,8 @@
 ﻿using Everyday.GUI.Base;
-using Everyday.Services.Interfaces;
+using Everyday.Data.Interfaces;
 using System.Windows.Input;
+using Everyday.Services.Interfaces;
+using Everyday.Core.Interfaces;
 
 namespace Everyday.GUI
 {
@@ -48,17 +50,13 @@ namespace Everyday.GUI
         #region Commands
         private async Task LoginAsync()
         {
-            HttpResponseMessage response =
-                await httpClientService
-                        .CreateUnauthorized($"Home/login?login={Login}&password={Password}")
-                            .PostCallAsync();
+            IConveyOperationResult res = await authorizationService.AcquireCredentialsAsync(Login, Password);
 
-            if (response?.IsSuccessStatusCode is not true)
+            if (res.StatusCode != 0)
             {
-                await AnnounceAsync("Error", response?.ReasonPhrase, "Ok");
+                await AnnounceAsync("Error", res.Message, "Ok");
                 return;
             }
-            await authorizationService.AcquireCredentialsAsync(response);
 
             await Shell.Current.GoToAsync("Menu");
         }

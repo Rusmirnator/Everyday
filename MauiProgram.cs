@@ -1,5 +1,6 @@
 ﻿using Everyday.Data.DataProviders;
 using Everyday.Data.Interfaces;
+using Everyday.Data.Services;
 using Everyday.GUI.Base;
 using Everyday.GUI.Pages.ViewModels;
 using Everyday.Services.Interfaces;
@@ -62,6 +63,7 @@ public static class MauiProgram
         return services.AddSingleton<IHttpClientService, HttpClientService>()
                        .AddSingleton<IAuthorizationService, AuthorizationService>()
                        .AddSingleton<ICryptographyService, CryptographyService>()
+                       .AddSingleton<IUserDataProvider, UserDataProvider>()
                        .AddSingleton<IItemDataProvider, ItemDataProvider>();
     }
 }

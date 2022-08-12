@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
@@ -8,6 +6,7 @@ namespace Everyday.GUI.Base
     {
         #region Fields & Properties
         public ICommand InitCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
         protected BaseViewModel ParentViewModel { get; set; }
         #endregion
 
