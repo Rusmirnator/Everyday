@@ -7,17 +7,15 @@ namespace Everyday.GUI
     public class MainPageViewModel : BaseViewModel
     {
         #region Fields & Properties
-        private string login;
-        private string password;
         private readonly IAuthorizationService authorizationService;
         private readonly IHttpClientService httpClientService;
 
         public string Login
         {
-            get { return GetValue(ref login); }
+            get { return GetValue<string>(); }
             set
             {
-                if (SetValue(ref login, value))
+                if (SetValue(value))
                 {
                     (LoginCommand as Command).ChangeCanExecute();
                 }
@@ -25,10 +23,10 @@ namespace Everyday.GUI
         }
         public string Password
         {
-            get { return GetValue(ref password); }
+            get { return GetValue<string>(); }
             set
             {
-                if (SetValue(ref password, value))
+                if (SetValue(value))
                 {
                     (LoginCommand as Command).ChangeCanExecute();
                 }

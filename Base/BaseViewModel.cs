@@ -4,49 +4,11 @@ using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : BindableBase
     {
         #region Fields & Properties
         public ICommand InitCommand { get; set; }
         protected BaseViewModel ParentViewModel { get; set; }
-        #endregion
-
-        #region Events
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            System.Diagnostics.Debug.WriteLine($"Property {propertyName} changed!");
-        }
-        #endregion
-
-        #region Public API
-
-        #region PropertyChanged
-        protected void RaisePropertyChanged(string name)
-        {
-            OnPropertyChanged(name);
-        }
-        #endregion
-
-        #region Setters & Getters
-        protected static T GetValue<T>(ref T storage) where T : class
-        {
-            return storage;
-        }
-
-        protected bool SetValue<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Equals(storage, value))
-            {
-                return false;
-            }
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
         #endregion
 
         #region Dialogs
@@ -80,8 +42,6 @@ namespace Everyday.GUI.Base
                 }
             }
         }
-        #endregion
-
         #endregion
     }
 }
