@@ -1,6 +1,6 @@
 ﻿using Everyday.Core.Models;
-using Everyday.Data.Interfaces;
 using Everyday.GUI.Base;
+using Everyday.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -9,11 +9,10 @@ namespace Everyday.GUI.Pages.ViewModels
     public class PurchasesViewModel : BaseViewModel
     {
         #region Fields & Properties
+        private readonly IItemService itemService;
+
         public ICommand OpenScannerCommand { get; set; }
         public ICommand AlterItemCommand { get; set; }
-
-        private readonly IItemDataProvider dataProvider;
-
         public string SearchTerm
         {
             get { return GetValue<string>(); }
@@ -47,13 +46,13 @@ namespace Everyday.GUI.Pages.ViewModels
         #endregion
 
         #region CTOR
-        public PurchasesViewModel(IItemDataProvider dataProvider)
+        public PurchasesViewModel(IItemService itemService)
         {
             OpenScannerCommand = new Command(async () => await OpenScannerAsync());
             AlterItemCommand = new Command(async () => await OpenItemEditorAsync(), () => CanAlterItem());
             InitCommand = new Command(async () => await GetItemsAsync());
             RefreshCommand = new Command(async () => await RefreshAsync());
-            this.dataProvider = dataProvider;
+            this.itemService = itemService;
         }
         #endregion
 
@@ -62,7 +61,7 @@ namespace Everyday.GUI.Pages.ViewModels
         {
             IsWaitIndicatorVisible = true;
 
-            Items = new(await dataProvider.GetItemsAsync().ConfigureAwait(false));
+            Items = new(await itemService.GetItemsAsync().ConfigureAwait(false));
 
             IsWaitIndicatorVisible = false;
         }

@@ -36,6 +36,7 @@ public static class MauiProgram
     {
         services.AddLogging()
                 .AddViewModels()
+                .AddDataProviders()
                 .AddServices();
     }
 
@@ -63,7 +64,12 @@ public static class MauiProgram
         return services.AddSingleton<IHttpClientService, HttpClientService>()
                        .AddSingleton<IAuthorizationService, AuthorizationService>()
                        .AddSingleton<ICryptographyService, CryptographyService>()
-                       .AddSingleton<IUserDataProvider, UserDataProvider>()
+                       .AddSingleton<IItemService, ItemService>();
+    }
+
+    private static IServiceCollection AddDataProviders(this IServiceCollection services)
+    {
+        return services.AddSingleton<IUserDataProvider, UserDataProvider>()
                        .AddSingleton<IItemDataProvider, ItemDataProvider>();
     }
 }

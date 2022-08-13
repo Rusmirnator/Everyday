@@ -370,3 +370,4 @@ obj
 **/bin/*
 **/obj/*
 packages
+.vs

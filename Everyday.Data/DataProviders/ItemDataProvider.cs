@@ -17,9 +17,14 @@ namespace Everyday.Data.DataProviders
         #endregion
 
         #region READ
-        public Task<Item?> GetItemByCodeAsync(int id)
+        public Task<Item?> GetItemByIdAsync(int id)
         {
             return http.Create($"Items/{id}/item").GetCallToObjectAsync<Item>();
+        }
+
+        public Task<Item?> GetItemByCodeAsync(string code)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Item>?> GetItemsAsync()
@@ -52,6 +57,11 @@ namespace Everyday.Data.DataProviders
             HttpResponseMessage? response = await http.Create($"Items/{id}/item").DeleteCallAsync();
 
             return response?.IsSuccessStatusCode is true;
+        }
+
+        public Task<bool> DeleteItemAsync(string code)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
