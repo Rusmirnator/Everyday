@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "WEGsGxQRWRoyy5QrnBbfQwynXKBO7B3xrr5PwC64g6eA6VMxufGuqoxfCszLkTxo1gfU31ZRJ7/yY79qfyM36w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ruson\\source\\repos\\Everyday\\Everyday.Services\\Everyday.Services.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ruson\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.1\\microsoft.extensions.configuration.6.0.1.nupkg.sha512",
+    "C:\\Users\\ruson\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\ruson\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.1\\microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512",
+    "C:\\Users\\ruson\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\ruson\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\ruson\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
