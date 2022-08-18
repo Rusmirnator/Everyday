@@ -372,4 +372,13 @@ obj
 packages
 .vs
 obj
+bin/*
+obj/*
+/obj/*
+/bin/*
+obj
+bin
+obj
+bin
+obj
 bin
