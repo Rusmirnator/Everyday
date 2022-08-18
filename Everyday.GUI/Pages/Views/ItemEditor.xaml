@@ -8,9 +8,17 @@
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type viewModels:ItemEditorViewModel}" />
     </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <base:EventToCommand EventName="Loaded"
+                             Command="{Binding InitCommand}"/>
+    </ContentPage.Behaviors>
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="{Binding AlteredItem.Name, Mode=TwoWay}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding AlteredItem.Description, Mode=TwoWay}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

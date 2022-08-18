@@ -1,5 +1,4 @@
-﻿using Everyday.Core.Interfaces;
-using Everyday.Core.Shared;
+﻿using Everyday.Core.Shared;
 
 namespace Everyday.Core.Models
 {

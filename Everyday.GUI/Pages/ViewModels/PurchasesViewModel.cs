@@ -70,9 +70,9 @@ namespace Everyday.GUI.Pages.ViewModels
             await GoToPageAsync("Error");
         }
 
-        private static async Task OpenItemEditorAsync()
+        private async Task OpenItemEditorAsync()
         {
-            //Pass selected item to EditorViewModel
+            Send(nameof(ItemEditorViewModel), nameof(SelectedItem), SelectedItem);
             await GoToPageAsync("ItemEditor");
         }
 

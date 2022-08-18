@@ -1,7 +1,6 @@
 ﻿using Everyday.Data.Interfaces;
 using Everyday.Data.Utilities;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
 

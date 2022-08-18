@@ -2,7 +2,7 @@
 
 namespace Everyday.GUI.Base
 {
-    public class BaseViewModel : BindableBase
+    public class BaseViewModel : ParameterNetwork
     {
         #region Fields & Properties
         public ICommand InitCommand { get; set; }
