@@ -6,7 +6,7 @@ namespace Everyday.GUI.Base
     public class ParameterNetwork : BindableBase
     {
         #region Fields & Properties
-        private static ConcurrentDictionary<string, ViewModelParameter> funnel;
+        private static ConcurrentDictionary<string, Parameter> funnel;
         #endregion
 
         #region CTOR
@@ -27,7 +27,7 @@ namespace Everyday.GUI.Base
         /// <returns></returns>
         protected static bool Send<T>(string audience, string name, T value)
         {
-            ViewModelParameter parameter = new(audience, name, value, typeof(T));
+            Parameter parameter = new(audience, name, value, typeof(T));
 
             return funnel.TryAdd(parameter.GetCompositeKey(), parameter);
         }
@@ -41,7 +41,7 @@ namespace Everyday.GUI.Base
         /// <returns></returns>
         protected static T Receive<T>(string name, [CallerMemberName] string audience = null)
         {
-            if (funnel.TryRemove(string.Concat(audience, ".", name), out ViewModelParameter value))
+            if (funnel.TryRemove(string.Concat(audience, ".", name), out Parameter value))
             {
                 return value.GetValue<T>();
             }

@@ -1,6 +1,6 @@
 ﻿namespace Everyday.GUI.Base
 {
-    public class ViewModelParameter
+    public class Parameter
     {
         #region Fields & Properties
         private readonly object value;
@@ -12,7 +12,7 @@
         #endregion
 
         #region CTOR
-        public ViewModelParameter(string audience, string name, object value, Type type)
+        public Parameter(string audience, string name, object value, Type type)
         {
             Audience = audience;
             Name = name;
