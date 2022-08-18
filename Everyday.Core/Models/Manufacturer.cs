@@ -1,6 +1,8 @@
-﻿namespace Everyday.Core.Models
+﻿using Everyday.Core.Shared;
+
+namespace Everyday.Core.Models
 {
-    public class Manufacturer
+    public class Manufacturer : DataTransferObject
     {
         #region Fields & Properties
         public int Id { get; set; }

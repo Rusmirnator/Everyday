@@ -81,6 +81,21 @@ namespace Everyday.Data.Utilities
             return req;
         }
 
+        public static async Task<T?> DeserializeContent<T>(this HttpResponseMessage response)
+        {
+            T? result;
+            try
+            {
+                result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return result;
+        }
+
         public static string ToQueryString<T>(this T obj) where T : class
         {
             if (obj is null)

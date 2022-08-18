@@ -8,8 +8,10 @@
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type local:MainPageViewModel}" />
     </ContentPage.BindingContext>
-    <ScrollView>
-        <VerticalStackLayout 
+    <RefreshView HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand"
+                 IsRefreshing="{Binding IsWaitIndicatorVisible, Mode=TwoWay}">
+        <VerticalStackLayout
             Spacing="25" 
             Padding="30,0" 
             VerticalOptions="Center">
@@ -22,9 +24,9 @@
                     MinimumWidthRequest="100"/>
             <Button x:Name="LoginBtn"
                 Text="Login"
-                SemanticProperties.Hint="Let's you login into EveryDay using provided credentials."
+                SemanticProperties.Hint="Lets you login into EveryDay using provided credentials."
                 Command="{Binding LoginCommand}"
                 HorizontalOptions="Center" />
         </VerticalStackLayout>
-    </ScrollView>
+    </RefreshView>
 </ContentPage>

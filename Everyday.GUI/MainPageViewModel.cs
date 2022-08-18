@@ -10,7 +10,11 @@ namespace Everyday.GUI
     {
         #region Fields & Properties
         private readonly IAuthorizationService authorizationService;
-        private readonly IHttpClientService httpClientService;
+        public bool IsWaitIndicatorVisible
+        {
+            get { return GetValue<bool>(); }
+            set { _ = SetValue(value); }
+        }
 
         public string Login
         {
@@ -42,7 +46,6 @@ namespace Everyday.GUI
         {
             LoginCommand = new Command(async () => await LoginAsync(), () => CanLogin());
             this.authorizationService = authorizationService;
-            this.httpClientService = httpClientService;
         }
 
         #endregion
@@ -50,11 +53,18 @@ namespace Everyday.GUI
         #region Commands
         private async Task LoginAsync()
         {
-            IConveyOperationResult res = await authorizationService.AcquireCredentialsAsync(Login, Password);
+            IsWaitIndicatorVisible = true;
+
+            IConveyOperationResult res = await authorizationService
+                                                    .AcquireCredentialsAsync(Login, Password)
+                                                        .ConfigureAwait(true);
+
+            IsWaitIndicatorVisible = false;
 
             if (res.StatusCode != 0)
             {
                 await AnnounceAsync("Error", res.Message, "Ok");
+
                 return;
             }
 

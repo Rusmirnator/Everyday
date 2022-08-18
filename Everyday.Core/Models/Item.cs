@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Everyday.Core.Shared;
+using System.ComponentModel.DataAnnotations;
 
 namespace Everyday.Core.Models
 {
-    public class Item
+    public class Item : DataTransferObject
     {
         #region Fields & Properties
         public int Id { get; set; }

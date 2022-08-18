@@ -1,4 +1,5 @@
-﻿using Everyday.Core.Models;
+﻿using Everyday.Core.Interfaces;
+using Everyday.Core.Models;
 
 namespace Everyday.Data.Interfaces
 {
@@ -7,9 +8,9 @@ namespace Everyday.Data.Interfaces
         public Task<Item?> GetItemByIdAsync(int id);
         public Task<Item?> GetItemByCodeAsync(string code);
         public Task<IEnumerable<Item>?> GetItemsAsync();
-        public Task<bool> CreateItemAsync(Item newItem);
-        public Task<bool> UpdateItemAsync(Item updatedItem);
-        public Task<bool> DeleteItemAsync(int id);
-        public Task<bool> DeleteItemAsync(string code);
+        public Task<IConveyOperationResult> CreateItemAsync(Item newItem);
+        public Task<IConveyOperationResult> UpdateItemAsync(Item updatedItem);
+        public Task<IConveyOperationResult> DeleteItemAsync(int id);
+        public Task<IConveyOperationResult> DeleteItemAsync(string code);
     }
 }

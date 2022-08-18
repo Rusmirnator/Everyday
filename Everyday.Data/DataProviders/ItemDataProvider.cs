@@ -1,5 +1,8 @@
-﻿using Everyday.Core.Models;
+﻿using Everyday.Core.Interfaces;
+using Everyday.Core.Models;
+using Everyday.Core.Shared;
 using Everyday.Data.Interfaces;
+using Everyday.Data.Utilities;
 
 namespace Everyday.Data.DataProviders
 {
@@ -24,7 +27,7 @@ namespace Everyday.Data.DataProviders
 
         public Task<Item?> GetItemByCodeAsync(string code)
         {
-            throw new NotImplementedException();
+            return http.Create($"Items/item?code={code}").GetCallToObjectAsync<Item>();
         }
 
         public async Task<IEnumerable<Item>?> GetItemsAsync()
@@ -34,32 +37,44 @@ namespace Everyday.Data.DataProviders
         #endregion
 
         #region CREATE
-        public async Task<bool> CreateItemAsync(Item newItem)
+        public async Task<IConveyOperationResult> CreateItemAsync(Item newItem)
         {
-            HttpResponseMessage? response = await http.Create($"Items/item").PostCallAsync(newItem);
+            IConveyOperationResult? res;
 
-            return response?.IsSuccessStatusCode is true;
+            HttpResponseMessage response = await http.Create($"Items/item").PostCallAsync(newItem);
+
+            res = await response!.DeserializeContent<IConveyOperationResult>();
+
+            return res ?? new OperationResult(response);
         }
         #endregion
 
         #region UPDATE
-        public async Task<bool> UpdateItemAsync(Item updatedItem)
+        public async Task<IConveyOperationResult> UpdateItemAsync(Item updatedItem)
         {
+            IConveyOperationResult? res;
+
             HttpResponseMessage? response = await http.Create($"Items/item").PutCallAsync(updatedItem);
 
-            return response?.IsSuccessStatusCode is true;
+            res = await response.DeserializeContent<IConveyOperationResult>();
+
+            return res ?? new OperationResult(response);
         }
         #endregion
 
         #region DELETE
-        public async Task<bool> DeleteItemAsync(int id)
+        public async Task<IConveyOperationResult> DeleteItemAsync(int id)
         {
+            IConveyOperationResult? res;
+
             HttpResponseMessage? response = await http.Create($"Items/{id}/item").DeleteCallAsync();
 
-            return response?.IsSuccessStatusCode is true;
+            res = await response.DeserializeContent<IConveyOperationResult>();
+
+            return res ?? new OperationResult(response);
         }
 
-        public Task<bool> DeleteItemAsync(string code)
+        public Task<IConveyOperationResult> DeleteItemAsync(string code)
         {
             throw new NotImplementedException();
         }

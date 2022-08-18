@@ -1,18 +1,15 @@
 ﻿using Everyday.Core.Interfaces;
+using Everyday.Core.Shared;
 
 namespace Everyday.Core.Models
 {
-    public class JsonWebToken : IConveyOperationResult
+    public class JsonWebToken : DataTransferObject
     {
-        public JsonWebToken(string? encodedToken)
+        public JsonWebToken(string? encodedToken) : base()
         {
             EncodedToken = encodedToken;
-            Result = this;
         }
 
         public string? EncodedToken { get; private set; }
-        public int StatusCode { get; set; }
-        public string? Message { get; set; }
-        public object? Result { get; set; }
     }
 }

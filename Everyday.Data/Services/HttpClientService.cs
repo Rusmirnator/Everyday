@@ -40,9 +40,12 @@ namespace Everyday.Data.Services
             return this;
         }
 
-        public async Task<HttpResponseMessage?> GetCallAsync()
+        public async Task<HttpResponseMessage> GetCallAsync()
         {
+            HttpResponseMessage res = new(HttpStatusCode.NoContent);
+
             ConfigureClient();
+
             try
             {
                 return await Client.SendAsync(CreateRequest(HttpMethod.Get, API_BASE_URI + Endpoint).PrepareHeaders());
@@ -51,54 +54,70 @@ namespace Everyday.Data.Services
             {
                 ThrowErrorMessage(ex.Message, ex?.InnerException?.Message);
             }
-            return null;
+
+            return res;
         }
 
-        public async Task<HttpResponseMessage?> PostCallAsync<T>(T model) where T : class
+        public async Task<HttpResponseMessage> PostCallAsync<T>(T model) where T : class
         {
+            HttpResponseMessage res = new(HttpStatusCode.NoContent);
+
             ConfigureClient();
+
             try
             {
-                return await Client.SendAsync(CreateRequest(HttpMethod.Post, API_BASE_URI + Endpoint).PrepareHeaders().PrepareContent(model));
+                res = await Client.SendAsync(CreateRequest(HttpMethod.Post, API_BASE_URI + Endpoint).PrepareHeaders().PrepareContent(model));
             }
             catch (Exception ex)
             {
                 ThrowErrorMessage(ex.Message, ex?.InnerException?.Message);
             }
-            return null;
+
+            return res;
         }
 
-        public async Task<HttpResponseMessage?> PostCallAsync()
+        public async Task<HttpResponseMessage> PostCallAsync()
         {
+            HttpResponseMessage res = new(HttpStatusCode.NoContent);
+
             ConfigureClient();
+
             try
             {
-                return await Client.SendAsync(CreateRequest(HttpMethod.Post, API_BASE_URI + Endpoint).PrepareHeaders());
+                res = await Client.SendAsync(CreateRequest(HttpMethod.Post, API_BASE_URI + Endpoint).PrepareHeaders());
             }
             catch (Exception ex)
             {
                 ThrowErrorMessage(ex.Message, ex?.InnerException?.Message);
             }
-            return null;
+
+            return res;
         }
 
-        public async Task<HttpResponseMessage?> PutCallAsync<T>(T model) where T : class
+        public async Task<HttpResponseMessage> PutCallAsync<T>(T model) where T : class
         {
+            HttpResponseMessage res = new(HttpStatusCode.NoContent);
+
             ConfigureClient();
+
             try
             {
-                return await Client.SendAsync(CreateRequest(HttpMethod.Put, API_BASE_URI + Endpoint).PrepareHeaders().PrepareContent(model));
+                res = await Client.SendAsync(CreateRequest(HttpMethod.Put, API_BASE_URI + Endpoint).PrepareHeaders().PrepareContent(model));
             }
             catch (Exception ex)
             {
                 ThrowErrorMessage(ex.Message, ex?.InnerException?.Message);
             }
-            return null;
+
+            return res;
         }
 
-        public async Task<HttpResponseMessage?> PutCallAsync()
+        public async Task<HttpResponseMessage> PutCallAsync()
         {
+            HttpResponseMessage res = new(HttpStatusCode.NoContent);
+
             ConfigureClient();
+
             try
             {
                 return await Client.SendAsync(CreateRequest(HttpMethod.Put, API_BASE_URI + Endpoint).PrepareHeaders());
@@ -107,21 +126,26 @@ namespace Everyday.Data.Services
             {
                 ThrowErrorMessage(ex.Message, ex?.InnerException?.Message);
             }
-            return null;
+
+            return res;
         }
 
-        public async Task<HttpResponseMessage?> DeleteCallAsync()
+        public async Task<HttpResponseMessage> DeleteCallAsync()
         {
+            HttpResponseMessage res = new(HttpStatusCode.NoContent);
+
             ConfigureClient();
+
             try
             {
-                return await Client.SendAsync(CreateRequest(HttpMethod.Delete, API_BASE_URI + Endpoint).PrepareHeaders());
+                res = await Client.SendAsync(CreateRequest(HttpMethod.Delete, API_BASE_URI + Endpoint).PrepareHeaders());
             }
             catch (Exception ex)
             {
                 ThrowErrorMessage(ex.Message, ex?.InnerException?.Message);
             }
-            return null;
+
+            return res;
         }
 
         private static HttpRequestMessage CreateRequest(HttpMethod method, string fullUri)
@@ -147,7 +171,7 @@ namespace Everyday.Data.Services
 
             try
             {
-                dto = JsonConvert.DeserializeObject<T>(await msg.Content.ReadAsStringAsync());
+                dto = await msg.DeserializeContent<T>();
             }
             catch (Exception ex)
             {
@@ -173,7 +197,7 @@ namespace Everyday.Data.Services
 
             try
             {
-                res = JsonConvert.DeserializeObject<List<T>>(await msg.Content.ReadAsStringAsync());
+                res = await msg.DeserializeContent<List<T>>();
             }
             catch (Exception ex)
             {
