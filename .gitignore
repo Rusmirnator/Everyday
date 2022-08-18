@@ -371,3 +371,5 @@ obj
 **/obj/*
 packages
 .vs
+obj
+bin
