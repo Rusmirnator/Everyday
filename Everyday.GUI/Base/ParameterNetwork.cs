@@ -10,9 +10,9 @@ namespace Everyday.GUI.Base
         #endregion
 
         #region CTOR
-        protected ParameterNetwork()
+        protected ParameterNetwork() : base()
         {
-            funnel = new();
+            funnel ??= new();
         }
         #endregion
 

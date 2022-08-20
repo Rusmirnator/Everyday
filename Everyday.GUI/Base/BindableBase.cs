@@ -15,7 +15,7 @@ namespace Everyday.GUI.Base
         #endregion
 
         #region CTOR
-        public BindableBase()
+        protected BindableBase()
         {
             DynamicStorage = new();
         }

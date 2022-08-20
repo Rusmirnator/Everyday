@@ -13,12 +13,50 @@
                              Command="{Binding InitCommand}"/>
     </ContentPage.Behaviors>
     <VerticalStackLayout>
-        <Label 
-            Text="{Binding AlteredItem.Name, Mode=TwoWay}"
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding Code, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding AlteredItem.Description, Mode=TwoWay}"
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding Name, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding Description, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding Width, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding Height, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding Depth, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry 
+            Margin="3,3,3,5"
+            Text="{Binding Weight, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding ManufacturerName, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry 
+            Margin="3,3,3,0"
+            Text="{Binding ManufacturerDescription, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

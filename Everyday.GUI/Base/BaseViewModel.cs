@@ -7,8 +7,12 @@ namespace Everyday.GUI.Base
         #region Fields & Properties
         public ICommand InitCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
-        protected BaseViewModel ParentViewModel { get; set; }
         #endregion
+
+        protected BaseViewModel() : base()
+        {
+
+        }
 
         #region Dialogs
         protected static async Task AnnounceAsync(string title, string message, string acceptText, string cancelText = null)
