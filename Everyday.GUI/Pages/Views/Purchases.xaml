@@ -51,7 +51,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Behaviors>
-                        <base:EventToCommand EventName="ItemSelected"
+                        <base:EventToCommand EventName="ItemTapped"
                                              Command="{Binding AlterItemCommand}"/>
                     </ListView.Behaviors>
                 </ListView>

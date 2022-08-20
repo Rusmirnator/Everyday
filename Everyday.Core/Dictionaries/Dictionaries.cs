@@ -14,4 +14,26 @@
         Inventory = 2,
         Finance = 4
     }
+
+    public enum ItemCateoryType
+    {
+        Consumable = 1,
+        Chemical = 2,
+        Container = 3
+    }
+
+    public enum TrashType
+    {
+        Bio = 1,
+        Mixed = 2,
+        Paper = 3,
+        Metal_and_plastic = 4,
+        Gass = 5
+    }
+
+    public enum MeasureUnit
+    {
+        Gramme = 1,
+        Milimeter = 2
+    }
 }

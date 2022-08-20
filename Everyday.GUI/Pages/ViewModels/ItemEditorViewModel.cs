@@ -1,13 +1,17 @@
-﻿using Everyday.Core.Models;
+﻿using Everyday.Core.Dictionaries;
+using Everyday.Core.Models;
 using Everyday.GUI.Base;
 using Everyday.Services.Interfaces;
+using System.Windows.Input;
 
 namespace Everyday.GUI.Pages.ViewModels
 {
     public class ItemEditorViewModel : BaseViewModel
     {
-
         #region Fields & Properties         
+        private readonly IItemService itemService;
+
+        public ICommand SaveCommand { get; set; }
         public Item AlteredItem
         {
             get { return GetValue<Item>(); }
@@ -76,12 +80,48 @@ namespace Everyday.GUI.Pages.ViewModels
             get { return GetValue<string>(); }
             set { _ = SetValue(value); }
         }
+
+        public ItemCateoryType Category
+        {
+            get { return GetValue<ItemCateoryType>(); }
+            set { _ = SetValue(value); }
+        }
         #endregion
 
         #region CTOR
-        public ItemEditorViewModel() : base()
+        public ItemEditorViewModel(IItemService itemService) : base()
         {
             InitializeCommands();
+            this.itemService = itemService;
+        }
+        #endregion
+
+        #region Commands
+        private async Task InitAsync()
+        {
+            GetParametersFromNetwork();
+            InitializeEditors();
+
+            await Task.CompletedTask;
+        }
+
+        private async Task RefreshAsync()
+        {
+            await Task.CompletedTask;
+        }
+
+        private async Task SaveAsync()
+        {
+            string res = await DecideAsync("Choose item category", "Cancel", "Consumable", "Chemical", "Container");
+
+            if (res.Equals("Cancel", StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            //await itemService.CreateItemAsync(new Item { });
+
+            await Task.CompletedTask;
         }
         #endregion
 
@@ -105,20 +145,21 @@ namespace Everyday.GUI.Pages.ViewModels
         private void InitializeCommands()
         {
             InitCommand = new Command(async () => await InitAsync());
+            RefreshCommand = new Command(async () => await RefreshAsync());
+            SaveCommand = new Command(async () => await SaveAsync(), () => CanSave());
         }
         #endregion
-
-        private async Task InitAsync()
-        {
-            GetParametersFromNetwork();
-            InitializeEditors();
-
-            await  Task.CompletedTask;
-        }
 
         private void GetParametersFromNetwork()
         {
             AlteredItem = Receive<Item>("SelectedItem", nameof(ItemEditorViewModel));
+        }
+        #endregion
+
+        #region CanExecute
+        public bool CanSave()
+        {
+            return true;
         }
         #endregion
     }

@@ -6,7 +6,7 @@ namespace Everyday.Core.Models
     public class Item : DataTransferObject
     {
         #region Fields & Properties
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string? Code { get; set; }
         [Required]
