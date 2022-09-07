@@ -226,47 +226,47 @@ namespace Everyday.Data.Services
             {
                 case HttpStatusCode.InternalServerError:
 
-                    ThrowErrorMessage("Błąd wewnętrzny serwera", msg.ReasonPhrase);
+                    ThrowErrorMessage("Internal server error", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.NotImplemented:
 
-                    ThrowErrorMessage("Nie zaimplementowano", msg.ReasonPhrase);
+                    ThrowErrorMessage("Not implemented", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.BadGateway:
 
-                    ThrowErrorMessage("Błąd bramy", msg.ReasonPhrase);
+                    ThrowErrorMessage("Bad gateway", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.ServiceUnavailable:
 
-                    ThrowErrorMessage("Usługa niedostępna", msg.ReasonPhrase);
+                    ThrowErrorMessage("Service unavailable", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.GatewayTimeout:
 
-                    ThrowErrorMessage("Przekroczono limit czasu połączenia", msg.ReasonPhrase);
+                    ThrowErrorMessage("Connection timeout", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.BadRequest:
 
-                    ThrowErrorMessage("Nieprawidłowe zapytanie", msg.ReasonPhrase);
+                    ThrowErrorMessage("Bad request", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.Unauthorized:
 
-                    ThrowErrorMessage("Nieautoryzowany dostęp", msg.ReasonPhrase);
+                    ThrowErrorMessage("Unauthorized", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.Forbidden:
 
-                    ThrowErrorMessage("Zabroniony", msg.ReasonPhrase);
+                    ThrowErrorMessage("Forbidden", msg.ReasonPhrase);
                     return true;
 
                 case HttpStatusCode.NotFound:
 
-                    ThrowErrorMessage("Nie znaleziono", msg.ReasonPhrase);
+                    ThrowErrorMessage("Not found", msg.ReasonPhrase);
                     return true;
             }
 
