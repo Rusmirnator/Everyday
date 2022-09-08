@@ -39,39 +39,48 @@ namespace Everyday.Data.DataProviders
         #region CREATE
         public async Task<IConveyOperationResult> CreateItemAsync(Item newItem)
         {
-            IConveyOperationResult? res;
+            IConveyOperationResult? res = null;
 
-            HttpResponseMessage response = await http.Create($"Items/item").PostCallAsync(newItem);
+            HttpResponseMessage? response = await http.Create($"Items/item").PostCallAsync(newItem);
 
-            res = await response!.DeserializeContent<IConveyOperationResult>();
+            if (response is not null)
+            {
+                res = await response!.DeserializeContent<IConveyOperationResult>();
+            }
 
-            return res ?? new OperationResult(response);
+            return res ?? new OperationResult();
         }
         #endregion
 
         #region UPDATE
         public async Task<IConveyOperationResult> UpdateItemAsync(Item updatedItem)
         {
-            IConveyOperationResult? res;
+            IConveyOperationResult? res = null;
 
             HttpResponseMessage? response = await http.Create($"Items/item").PutCallAsync(updatedItem);
 
-            res = await response.DeserializeContent<IConveyOperationResult>();
+            if (response is not null)
+            {
+                res = await response.DeserializeContent<IConveyOperationResult>();
+            }
 
-            return res ?? new OperationResult(response);
+            return res ?? new OperationResult();
         }
         #endregion
 
         #region DELETE
         public async Task<IConveyOperationResult> DeleteItemAsync(int id)
         {
-            IConveyOperationResult? res;
+            IConveyOperationResult? res = null;
 
             HttpResponseMessage? response = await http.Create($"Items/{id}/item").DeleteCallAsync();
 
-            res = await response.DeserializeContent<IConveyOperationResult>();
+            if (response is not null)
+            {
+                res = await response.DeserializeContent<IConveyOperationResult>();
+            }
 
-            return res ?? new OperationResult(response);
+            return res ?? new OperationResult();
         }
 
         public Task<IConveyOperationResult> DeleteItemAsync(string code)
