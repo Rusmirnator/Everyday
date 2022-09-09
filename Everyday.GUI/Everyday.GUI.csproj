@@ -51,17 +51,14 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Platforms\Android\Resources\raw\everydaywebservice.crt" />
+	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Authorization\" />
-	  <Folder Include="Utilities\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,6 +75,15 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Everyday.Data\Everyday.Data.csproj" />
 	  <ProjectReference Include="..\Everyday.Services\Everyday.Services.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidResource Update="Platforms\Android\Resources\raw\everydaywebservice.crt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </AndroidResource>
+	  <AndroidResource Update="Platforms\Android\Resources\xml\network_security_config.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </AndroidResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -108,6 +114,10 @@
 	  <PackageReference Include="ZXing.Net.Maui.Jgdev">
 	    <Version>1.0.5</Version>
 	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Utilities\" />
 	</ItemGroup>
 
 </Project>

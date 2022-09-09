@@ -9,20 +9,23 @@ namespace Everyday.Services.Services
     {
         private JsonWebToken? AcquiredToken;
         private readonly IUserDataProvider dataProvider;
+        private readonly ICryptographyService cryptography;
+
         private string? CachedLogin { get; set; }
         private string? CachedPassword { get; set; }
 
-        public AuthorizationService(IUserDataProvider dataProvider)
+        public AuthorizationService(IUserDataProvider dataProvider, ICryptographyService cryptography)
         {
             this.dataProvider = dataProvider;
+            this.cryptography = cryptography;
             CachedLogin = string.Empty;
             CachedPassword = string.Empty;
         }
 
         public async Task<IConveyOperationResult> AcquireCredentialsAsync(string? login = null, string? password = null)
         {
-            CachedLogin = login ?? CachedLogin;
-            CachedPassword = password ?? CachedPassword;
+            CachedLogin = cryptography.Encrypt(login!) ?? CachedLogin;
+            CachedPassword = cryptography.Encrypt(password!) ?? CachedPassword;
 
             IConveyOperationResult res = await dataProvider.GetTokenAsync(CachedLogin!, CachedPassword!);
 

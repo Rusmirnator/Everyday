@@ -12,8 +12,7 @@ namespace Everyday.Data.Services
         private readonly string API_BASE_URI;
         private string? Endpoint;
         private readonly int Timeout;
-        private static readonly HttpClientHandler RequestHandler = new();
-        private static HttpClient? Client;
+        private static HttpClient? Client = new();
         private readonly IConfiguration configuration;
         #endregion
 
@@ -23,14 +22,6 @@ namespace Everyday.Data.Services
             this.configuration = configuration;
             Timeout = 3000;
             API_BASE_URI = this.configuration["Https:API_BASE_URI"];
-
-            RequestHandler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            RequestHandler.ServerCertificateCustomValidationCallback += (server, cert, chain, ssl) =>
-            {
-                return true;
-            };
-
-            Client ??= new(RequestHandler);
         }
         #endregion
 
