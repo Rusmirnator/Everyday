@@ -1,4 +1,5 @@
 ﻿using Everyday.Core.Dictionaries;
+using Everyday.Core.Interfaces;
 using Everyday.Core.Models;
 using Everyday.GUI.Base;
 using Everyday.Services.Interfaces;
@@ -119,7 +120,39 @@ namespace Everyday.GUI.Pages.ViewModels
                 return;
             }
 
-            //await itemService.CreateItemAsync(new Item { });
+            Item alteredItem = new Item
+            {
+                Code = Code,
+                Name = Name,
+                Description = Description,
+                Width = Width,
+                Depth = Depth,
+                Weight = Weight,
+                Price = Price,
+            };
+
+            if (!string.IsNullOrEmpty(string.Concat(ManufacturerName, ManufacturerDescription)))
+            {
+                alteredItem.Manufacturer = new Manufacturer
+                {
+                    Name = ManufacturerName,
+                    Description = ManufacturerDescription
+                };
+            }
+
+            alteredItem.ItemDefinition = new ItemDefinition
+            {
+                DimensionsMeasureUnitId = 2,
+                WeightMeasureUnitId = 1,
+                ItemCategoryTypeId = 1
+            };
+
+            IConveyOperationResult response = await itemService.CreateItemAsync(alteredItem);
+
+            if (response.StatusCode != 0)
+            {
+                await AnnounceAsync("Error", response.Message, "Ok");
+            }
 
             await Task.CompletedTask;
         }

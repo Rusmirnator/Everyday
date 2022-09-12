@@ -2,7 +2,6 @@
 using Everyday.Data.Interfaces;
 using Everyday.Data.Services;
 using Everyday.GUI.Base;
-using Everyday.GUI.Compliance;
 using Everyday.GUI.Pages.ViewModels;
 using Everyday.Services.Interfaces;
 using Everyday.Services.Services;
