@@ -7,6 +7,7 @@ namespace Everyday.GUI.Base
         #region Fields & Properties
         public ICommand InitCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
+        public ICommand CleanUpCommand { get; set; }
         #endregion
 
         protected BaseViewModel() : base()

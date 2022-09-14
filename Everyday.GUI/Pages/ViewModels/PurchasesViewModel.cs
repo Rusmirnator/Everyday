@@ -13,6 +13,7 @@ namespace Everyday.GUI.Pages.ViewModels
 
         public ICommand OpenScannerCommand { get; set; }
         public ICommand AlterItemCommand { get; set; }
+        public ICommand CreateItemCommand { get; set; }
         public string SearchTerm
         {
             get { return GetValue<string>(); }
@@ -49,7 +50,8 @@ namespace Everyday.GUI.Pages.ViewModels
         public PurchasesViewModel(IItemService itemService)
         {
             OpenScannerCommand = new Command(async () => await OpenScannerAsync());
-            AlterItemCommand = new Command(async () => await OpenItemEditorAsync(), () => CanAlterItem());
+            AlterItemCommand = new Command(async () => await OpenItemEditorAsync(false), () => CanAlterItem());
+            CreateItemCommand = new Command(async () => await OpenItemEditorAsync(true));
             InitCommand = new Command(async () => await GetItemsAsync());
             RefreshCommand = new Command(async () => await RefreshAsync());
             this.itemService = itemService;
@@ -70,9 +72,13 @@ namespace Everyday.GUI.Pages.ViewModels
             await GoToPageAsync("Error");
         }
 
-        private async Task OpenItemEditorAsync()
+        private async Task OpenItemEditorAsync(bool createNew)
         {
-            Send(nameof(ItemEditorViewModel), nameof(SelectedItem), SelectedItem);
+            if (!createNew)
+            {
+                Send(nameof(ItemEditorViewModel), nameof(SelectedItem), SelectedItem);
+            }
+
             await GoToPageAsync("ItemEditor");
         }
 

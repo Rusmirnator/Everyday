@@ -11,55 +11,146 @@
     <ContentPage.Behaviors>
         <base:EventToCommand EventName="Loaded"
                              Command="{Binding InitCommand}"/>
+        <base:EventToCommand EventName="Unloaded"
+                             Command="{Binding CleanUpCommand}"/>
     </ContentPage.Behaviors>
-    <VerticalStackLayout>
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding Code, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding Name, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding Description, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding Width, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding Height, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding Depth, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,5"
-            Text="{Binding Weight, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding ManufacturerName, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry 
-            Margin="3,3,3,0"
-            Text="{Binding ManufacturerDescription, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button Text="Save changes" 
-                Command="{Binding SaveCommand}"
-                Margin="3,15,3,3" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout HorizontalOptions="Fill">
+            <Label Text="Item"/>
+            <Border>
+                <Entry 
+                    Text="{Binding Code, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Code"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Name, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Name"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Description, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Description"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Width, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Width"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Height, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Height"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Depth, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Depth"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry
+                    Text="{Binding Weight, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Weight"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Label Text="Manufacturer"/>
+            <Border>
+                <Picker ItemsSource="{Binding Manufacturers}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedManufacturer}">
+                    <Picker.Behaviors>
+                        <base:EventToCommand EventName="SelectedIndexChanged"
+                                             Command="{Binding SelectManufacturerCommand}"/>
+                    </Picker.Behaviors>
+                </Picker>
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding ManufacturerName, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Name"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding ManufacturerDescription, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Description"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Label Text="Consumable"/>
+            <Border>
+                <Entry 
+                    Text="{Binding Energy, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Energy Kcal"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Protein, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Protein g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Carbohydrates, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Carbohydrates g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Sugars, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Sugars g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Fat, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Fat g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding SaturatedFat, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Saturated fat g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Fiber, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Fiber g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry 
+                    Text="{Binding Salt, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Salt g"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Button Text="Save changes" 
+                    Command="{Binding SaveCommand}"
+                    Margin="3,15,3,3" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

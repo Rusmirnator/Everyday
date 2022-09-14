@@ -1,4 +1,5 @@
-﻿using Everyday.Data.DataProviders;
+﻿using Everyday.Core.Models;
+using Everyday.Data.DataProviders;
 using Everyday.Data.Interfaces;
 using Everyday.Data.Services;
 using Everyday.GUI.Base;
@@ -7,7 +8,6 @@ using Everyday.Services.Interfaces;
 using Everyday.Services.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Maui.Embedding;
 using System.Reflection;
 
 namespace Everyday.GUI;
@@ -63,14 +63,18 @@ public static class MauiProgram
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
         return services.AddSingleton<IHttpClientService, HttpClientService>()
-                        .AddSingleton<IAuthorizationService, AuthorizationService>()
-                        .AddSingleton<ICryptographyService, CryptographyService>()
-                        .AddSingleton<IItemService, ItemService>();
+                        .AddScoped<IAuthorizationService, AuthorizationService>()
+                        .AddScoped<ICryptographyService, CryptographyService>()
+                        .AddScoped<IItemService, ItemService>()
+                        .AddScoped<IManufacturerService, ManufacturerService>()
+                        .AddScoped<IConsumableService, ConsumableService>();
     }
 
     private static IServiceCollection AddDataProviders(this IServiceCollection services)
     {
-        return services.AddSingleton<IUserDataProvider, UserDataProvider>()
-                       .AddSingleton<IItemDataProvider, ItemDataProvider>();
+        return services.AddScoped<IUserDataProvider, UserDataProvider>()
+                       .AddScoped<IItemDataProvider, ItemDataProvider>()
+                       .AddScoped<IDataProvider<Manufacturer>, ManufacturerDataProvider>()
+                       .AddScoped<IDataProvider<Consumable>, ConsumableDataProvider>();
     }
 }

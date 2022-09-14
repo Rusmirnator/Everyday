@@ -36,28 +36,28 @@ namespace Everyday.Services.Services
         #endregion
 
         #region CREATE
-        public Task<IConveyOperationResult> CreateItemAsync(Item newItem)
+        public async Task<IConveyOperationResult> CreateItemAsync(Item newItem)
         {
-            throw new NotImplementedException();
+            return await dataProvider.CreateItemAsync(newItem);
         }
         #endregion
 
         #region UPDATE
-        public Task<IConveyOperationResult> UpdateItemAsync(Item updatedItem)
+        public async Task<IConveyOperationResult> UpdateItemAsync(Item updatedItem)
         {
-            throw new NotImplementedException();
+            return await dataProvider.UpdateItemAsync(updatedItem);
         }
         #endregion
 
         #region DELETE
-        public Task<IConveyOperationResult> DeleteItemAsync(int id)
+        public async Task<IConveyOperationResult> DeleteItemAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dataProvider.DeleteItemAsync(id);
         }
 
-        public Task<IConveyOperationResult> DeleteItemAsync(string code)
+        public async Task<IConveyOperationResult> DeleteItemAsync(string code)
         {
-            throw new NotImplementedException();
+            return await dataProvider.DeleteItemAsync(code);
         }
         #endregion
     }

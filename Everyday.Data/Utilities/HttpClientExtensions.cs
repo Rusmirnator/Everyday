@@ -107,9 +107,11 @@ namespace Everyday.Data.Utilities
 
             foreach (PropertyInfo prop in obj.GetType().GetProperties())
             {
-                _ = query.Append($"{prop.Name}={prop?.GetGetMethod()?.Invoke(obj, null)}&");
+
+                _ = query.Append($"{prop.Name.Replace(prop.Name[0], char.ToLower(prop.Name[0]))}={prop?.GetGetMethod()?.Invoke(obj, null)}&");
             }
             _ = query.Remove(query.Length - 1, 1);
+
             return query.ToString();
         }
     }

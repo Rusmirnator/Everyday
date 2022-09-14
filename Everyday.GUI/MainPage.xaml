@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Everyday.GUI"
              xmlns:base="clr-namespace:Everyday.GUI.Base"
-             BackgroundColor="AliceBlue"
              x:Class="Everyday.GUI.MainPage">
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type local:MainPageViewModel}" />
@@ -15,11 +14,15 @@
             Spacing="25" 
             Padding="30,0" 
             VerticalOptions="Center">
-            <Editor Text="{Binding Login}" 
+            <Border>
+                <Editor Text="{Binding Login}" 
                     MinimumWidthRequest="160"/>
-            <Entry Text="{Binding Password}"
+            </Border>
+            <Border>
+                <Entry Text="{Binding Password}"
                     IsPassword="True"
                     MinimumWidthRequest="160"/>
+            </Border>
             <Button Text="Login"
                 SemanticProperties.Hint="Lets you login into EveryDay using provided credentials."
                 Command="{Binding LoginCommand}"

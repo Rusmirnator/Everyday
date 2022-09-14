@@ -6,42 +6,42 @@ using Everyday.Data.Utilities;
 
 namespace Everyday.Data.DataProviders
 {
-    public class ItemDataProvider : IItemDataProvider
+    public class ManufacturerDataProvider : IDataProvider<Manufacturer>
     {
         #region Fields & Properties
         private readonly IHttpClientService http;
         #endregion
 
         #region CTOR
-        public ItemDataProvider(IHttpClientService http)
+        public ManufacturerDataProvider(IHttpClientService http)
         {
             this.http = http;
         }
         #endregion
 
         #region READ
-        public Task<Item?> GetItemByIdAsync(int id)
+        public async Task<IEnumerable<Manufacturer>?> GetAllAsync()
         {
-            return http.Create($"Items/{id}/item").GetCallToObjectAsync<Item>();
+            return await http.Create($"Manufacturers/manufacturers").GetCallToListAsync<Manufacturer>();
         }
 
-        public Task<Item?> GetItemByCodeAsync(string code)
+        public async Task<Manufacturer?> GetByIdAsync(int id)
         {
-            return http.Create($"Items/item?code={code}").GetCallToObjectAsync<Item>();
+            return await http.Create($"Manufacturers/{id}/manufacturer").GetCallToObjectAsync<Manufacturer>();
         }
 
-        public async Task<IEnumerable<Item>?> GetItemsAsync()
+        public async Task<Manufacturer?> GetByMemberAsync<TSource, TMember>(Func<TSource, TMember> memberSelector)
         {
-            return await http.Create("Items/items").GetCallToListAsync<Item>();
+            return await http.Create($"Manufacturers/manufacturer{memberSelector.ToQueryString()}").GetCallToObjectAsync<Manufacturer>();
         }
         #endregion
 
         #region CREATE
-        public async Task<IConveyOperationResult> CreateItemAsync(Item newItem)
+        public async Task<IConveyOperationResult> CreateAsync(Manufacturer newDatum)
         {
             IConveyOperationResult? res = null;
 
-            HttpResponseMessage? response = await http.Create($"Items/item").PostCallAsync(newItem);
+            HttpResponseMessage? response = await http.Create($"Manufacturers/manufacturer").PostCallAsync(newDatum);
 
             if (response is not null)
             {
@@ -53,11 +53,11 @@ namespace Everyday.Data.DataProviders
         #endregion
 
         #region UPDATE
-        public async Task<IConveyOperationResult> UpdateItemAsync(Item updatedItem)
+        public async Task<IConveyOperationResult> UpdateAsync(Manufacturer updatedDatum)
         {
             IConveyOperationResult? res = null;
 
-            HttpResponseMessage? response = await http.Create($"Items/item").PutCallAsync(updatedItem);
+            HttpResponseMessage? response = await http.Create($"Manufacturers/manufacturer").PutCallAsync(updatedDatum);
 
             if (response is not null)
             {
@@ -69,11 +69,11 @@ namespace Everyday.Data.DataProviders
         #endregion
 
         #region DELETE
-        public async Task<IConveyOperationResult> DeleteItemAsync(int id)
+        public async Task<IConveyOperationResult> DeleteByIdAsync(int id)
         {
             IConveyOperationResult? res = null;
 
-            HttpResponseMessage? response = await http.Create($"Items/{id}/item").DeleteCallAsync();
+            HttpResponseMessage? response = await http.Create($"Manufacturers/{id}/manufacturer").DeleteCallAsync();
 
             if (response is not null)
             {
@@ -83,11 +83,11 @@ namespace Everyday.Data.DataProviders
             return res ?? new OperationResult();
         }
 
-        public async Task<IConveyOperationResult> DeleteItemAsync(string code)
+        public async Task<IConveyOperationResult> DeleteByMemberAsync<TSource, TMember>(Func<TSource, TMember> memberSelector)
         {
             IConveyOperationResult? res = null;
 
-            HttpResponseMessage? response = await http.Create($"Items/item?code={code}").DeleteCallAsync();
+            HttpResponseMessage? response = await http.Create($"Manufacturers/manufacturer{memberSelector.ToQueryString()}").DeleteCallAsync();
 
             if (response is not null)
             {
