@@ -77,21 +77,29 @@ namespace Everyday.Data.Utilities
 
         public static HttpRequestMessage PrepareContent<T>(this HttpRequestMessage req, T model) where T : class
         {
-            req.Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            JsonSerializerSettings options = new JsonSerializerSettings();
+
+            options.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            req.Content = new StringContent(JsonConvert.SerializeObject(model, options), Encoding.UTF8, "application/json");
             return req;
         }
 
         public static async Task<T?> DeserializeContent<T>(this HttpResponseMessage response)
         {
-            T? result;
+            T? result = default;
+
+            JsonSerializerSettings options = new JsonSerializerSettings();
+            options.NullValueHandling = NullValueHandling.Ignore;
+            options.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
             try
             {
-                result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync(), options);
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
-                throw;
+                System.Diagnostics.Debug.WriteLine(x.Message);
             }
             return result;
         }

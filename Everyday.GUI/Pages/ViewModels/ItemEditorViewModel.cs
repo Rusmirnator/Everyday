@@ -3,6 +3,7 @@ using Everyday.Core.Interfaces;
 using Everyday.Core.Models;
 using Everyday.GUI.Base;
 using Everyday.Services.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -14,6 +15,7 @@ namespace Everyday.GUI.Pages.ViewModels
         private readonly IItemService itemService;
         private readonly IManufacturerService manufacturerService;
         private readonly IConsumableService consumableService;
+        private bool isExistingItemAltered;
 
         public ICommand SaveCommand { get; set; }
         public ICommand SelectManufacturerCommand { get; set; }
@@ -179,11 +181,15 @@ namespace Everyday.GUI.Pages.ViewModels
         #region Commands
         private async Task InitAsync()
         {
+            IsWaitIndicatorVisible = true;
+
             GetParametersFromNetwork();
 
             await RefreshAsync();
 
             InitializeEditors();
+
+            IsWaitIndicatorVisible = false;
         }
 
         private async Task RefreshAsync()
@@ -202,12 +208,7 @@ namespace Everyday.GUI.Pages.ViewModels
 
         private async Task SaveAsync()
         {
-            string res = await DecideAsync("Choose item category", "Cancel", "Consumable", "Chemical", "Container");
-
-            if (res.Equals("Cancel", StringComparison.Ordinal))
-            {
-                return;
-            }
+            IsWaitIndicatorVisible = true;
 
             Item alteredItem = new Item
             {
@@ -215,6 +216,7 @@ namespace Everyday.GUI.Pages.ViewModels
                 Name = Name,
                 Description = Description,
                 Width = Width,
+                Height = Height,
                 Depth = Depth,
                 Weight = Weight,
                 Price = Price,
@@ -236,15 +238,17 @@ namespace Everyday.GUI.Pages.ViewModels
                 ItemCategoryTypeId = 1
             };
 
-            IConveyOperationResult response = await itemService.CreateItemAsync(alteredItem);
+            IConveyOperationResult response = await ExecuteItemDataChangesAsync(alteredItem);
 
             if (response.StatusCode != 0)
             {
+                IsWaitIndicatorVisible = false;
+
                 await AnnounceAsync("Error", response.Message, "Ok");
                 return;
             }
 
-            Consumable consumable = new Consumable
+            Consumable alteredConsumable = new Consumable
             {
                 Energy = Energy,
                 Protein = Protein,
@@ -253,16 +257,28 @@ namespace Everyday.GUI.Pages.ViewModels
                 Fat = Fat,
                 SaturatedFat = SaturatedFat,
                 Fiber = Fiber,
-                Salt = Salt,
+                Salt = Salt
             };
 
-            response = await consumableService.CreateConsumableAsync(consumable);
+            Item ownerItem = await itemService.GetItemByCodeAsync(Code);
+            AlteredConsumable.ItemId = ownerItem.Id;
+
+            response = await ExecuteConsumableDataChangesAsync(alteredConsumable);
 
             if (response.StatusCode != 0)
             {
+                IsWaitIndicatorVisible = false;
+
                 await AnnounceAsync("Error", response.Message, "Ok");
+
                 return;
             }
+
+            IsWaitIndicatorVisible = false;
+
+            await AnnounceAsync("Success", response.Message, "Ok");
+
+            await GoToPageAsync("Purchases");
         }
 
         private void SelectManufacturer()
@@ -280,6 +296,26 @@ namespace Everyday.GUI.Pages.ViewModels
         {
             AlteredConsumable = null;
             AlteredItem = null;
+            isExistingItemAltered = false;
+
+            Code = null;
+            Name = null;
+            Description = null;
+            Width = null;
+            Height = null;
+            Depth = null;
+            Weight = null;
+            Price = null;
+            ManufacturerName = null;
+            ManufacturerDescription = null;
+            Energy = null;
+            Protein = null;
+            Carbohydrates = null;
+            Sugars = null;
+            Fat = null;
+            SaturatedFat = null;
+            Fiber = null;
+            Salt = null;
         }
         #endregion
 
@@ -329,10 +365,40 @@ namespace Everyday.GUI.Pages.ViewModels
         }
         #endregion
 
+        #region BehaviorResolvers
+        private async Task<IConveyOperationResult> ExecuteItemDataChangesAsync(Item alteredItem)
+        {
+            if (isExistingItemAltered)
+            {
+                return await itemService.UpdateItemAsync(alteredItem);
+            }
+
+            return await itemService.CreateItemAsync(alteredItem);
+        }
+
+        private async Task<IConveyOperationResult> ExecuteConsumableDataChangesAsync(Consumable alteredConsumable)
+        {
+            if (isExistingItemAltered)
+            {
+                return await consumableService.UpdateConsumableAsync(alteredConsumable);
+            }
+
+            return await consumableService.CreateConsumableAsync(alteredConsumable);
+        }
+        #endregion
+
+        #region DataFlow
         private void GetParametersFromNetwork()
         {
             AlteredItem = Receive<Item>("SelectedItem", nameof(ItemEditorViewModel));
+
+            if (AlteredItem is not null)
+            {
+                isExistingItemAltered = true;
+            }
         }
+        #endregion
+
         #endregion
 
         #region CanExecute

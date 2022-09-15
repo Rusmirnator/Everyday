@@ -4,6 +4,7 @@
              x:Class="Everyday.GUI.Pages.Views.ItemEditor"
              xmlns:viewModels="clr-namespace:Everyday.GUI.Pages.ViewModels"
              xmlns:base="clr-namespace:Everyday.GUI.Base"
+             IsBusy="{Binding IsWaitIndicatorVisible, Mode=TwoWay}"
              Title="ItemEditor">
     <ContentPage.BindingContext>
         <base:DependencyInjectionSource Type="{x:Type viewModels:ItemEditorViewModel}" />
@@ -15,7 +16,7 @@
                              Command="{Binding CleanUpCommand}"/>
     </ContentPage.Behaviors>
     <ScrollView>
-        <VerticalStackLayout HorizontalOptions="Fill">
+        <VerticalStackLayout HorizontalOptions="Fill" MinimumWidthRequest="200">
             <Label Text="Item"/>
             <Border>
                 <Entry 
@@ -63,6 +64,13 @@
                 <Entry
                     Text="{Binding Weight, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                     Placeholder="Weight"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Fill" />
+            </Border>
+            <Border>
+                <Entry
+                    Text="{Binding Price, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    Placeholder="Price"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
             </Border>
