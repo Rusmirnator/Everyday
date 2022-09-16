@@ -21,6 +21,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Code, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Code"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -28,6 +29,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Name, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Name"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -35,6 +37,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Description, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Description"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -42,6 +45,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Width, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Width"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -49,6 +53,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Height, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Height"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -56,6 +61,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Depth, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Depth"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -63,6 +69,7 @@
             <Border>
                 <Entry
                     Text="{Binding Weight, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Weight"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -70,6 +77,7 @@
             <Border>
                 <Entry
                     Text="{Binding Price, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Price"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -88,6 +96,7 @@
             <Border>
                 <Entry 
                     Text="{Binding ManufacturerName, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Name"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -95,6 +104,7 @@
             <Border>
                 <Entry 
                     Text="{Binding ManufacturerDescription, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Description"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -103,6 +113,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Energy, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Energy Kcal"
                     VerticalOptions="Center"
                     HorizontalOptions="Fill" />
@@ -110,6 +121,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Protein, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Protein g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -117,6 +129,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Carbohydrates, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Carbohydrates g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -124,6 +137,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Sugars, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Sugars g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -131,6 +145,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Fat, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Fat g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -138,6 +153,7 @@
             <Border>
                 <Entry 
                     Text="{Binding SaturatedFat, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Saturated fat g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -145,6 +161,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Fiber, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Next"
                     Placeholder="Fiber g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />
@@ -152,6 +169,7 @@
             <Border>
                 <Entry 
                     Text="{Binding Salt, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                    ReturnType="Go"
                     Placeholder="Salt g"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill" />

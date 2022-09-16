@@ -20,7 +20,6 @@
             <Border Margin="0,3,3,0" HorizontalOptions="Fill">
                 <Editor Text="{Binding SearchTerm, UpdateSourceEventName=PropertyChanged}" 
                         Placeholder="Search by name or code..."
-                        PlaceholderColor="Violet"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="Fill" />
             </Border>

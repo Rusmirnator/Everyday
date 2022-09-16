@@ -261,7 +261,7 @@ namespace Everyday.GUI.Pages.ViewModels
             };
 
             Item ownerItem = await itemService.GetItemByCodeAsync(Code);
-            AlteredConsumable.ItemId = ownerItem.Id;
+            alteredConsumable.ItemId = ownerItem.Id;
 
             response = await ExecuteConsumableDataChangesAsync(alteredConsumable);
 
@@ -277,6 +277,8 @@ namespace Everyday.GUI.Pages.ViewModels
             IsWaitIndicatorVisible = false;
 
             await AnnounceAsync("Success", response.Message, "Ok");
+
+            CleanUp();
 
             await GoToPageAsync("Purchases");
         }

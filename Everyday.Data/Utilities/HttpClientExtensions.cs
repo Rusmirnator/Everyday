@@ -90,8 +90,8 @@ namespace Everyday.Data.Utilities
             T? result = default;
 
             JsonSerializerSettings options = new JsonSerializerSettings();
-            options.NullValueHandling = NullValueHandling.Ignore;
-            options.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            options.NullValueHandling = NullValueHandling.Include;
+            options.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
 
             try
             {

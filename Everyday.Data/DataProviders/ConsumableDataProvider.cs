@@ -45,7 +45,7 @@ namespace Everyday.Data.DataProviders
 
             if (response is not null)
             {
-                res = await response!.DeserializeContent<OperationResult>();
+                res = await response!.DeserializeContent<DataTransferObject>();
             }
 
             return res ?? new OperationResult();
@@ -61,7 +61,7 @@ namespace Everyday.Data.DataProviders
 
             if (response is not null)
             {
-                res = await response!.DeserializeContent<OperationResult>();
+                res = await response!.DeserializeContent<DataTransferObject>();
             }
 
             return res ?? new OperationResult();
@@ -77,7 +77,7 @@ namespace Everyday.Data.DataProviders
 
             if (response is not null)
             {
-                res = await response.DeserializeContent<OperationResult>();
+                res = await response.DeserializeContent<DataTransferObject>();
             }
 
             return res ?? new OperationResult();
@@ -91,7 +91,7 @@ namespace Everyday.Data.DataProviders
 
             if (response is not null)
             {
-                res = await response.DeserializeContent<OperationResult>();
+                res = await response.DeserializeContent<DataTransferObject>();
             }
 
             return res ?? new OperationResult();

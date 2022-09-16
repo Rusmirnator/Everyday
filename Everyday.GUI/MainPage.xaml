@@ -15,7 +15,7 @@
             Padding="30,0" 
             VerticalOptions="Center">
             <Border>
-                <Editor Text="{Binding Login}" 
+                <Entry Text="{Binding Login}" 
                     MinimumWidthRequest="160"/>
             </Border>
             <Border>
