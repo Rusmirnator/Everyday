@@ -1,6 +1,9 @@
-﻿using System.Collections.Concurrent;
+﻿using Everyday.Core.Attributes;
+using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
@@ -12,15 +15,17 @@ namespace Everyday.GUI.Base
         #region Fields & Properties
         public event PropertyChangedEventHandler PropertyChanged;
         private ConcurrentDictionary<string, object> DynamicStorage { get; }
+        private ConcurrentDictionary<string, ICommand> CommandStorage { get; }
         #endregion
 
         #region CTOR
         protected BindableBase()
         {
             DynamicStorage = new();
+            CommandStorage = new();
+            CreateCommands();
         }
         #endregion
-
 
         #region Public API
 
@@ -94,7 +99,7 @@ namespace Everyday.GUI.Base
                 return true;
             }
 
-            if (DynamicStorage.TryGetValue(propertyName, out object storage) 
+            if (DynamicStorage.TryGetValue(propertyName, out object storage)
                     && DynamicStorage.TryUpdate(propertyName, value, storage))
             {
                 OnPropertyChanged(propertyName);
@@ -111,6 +116,16 @@ namespace Everyday.GUI.Base
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region Private API
+        private void CreateCommands()
+        {
+            foreach (MethodInfo method in GetType().GetMethods().Where(m => m.GetCustomAttribute(typeof(CommandAttribute)) is not null))
+            {
+                CommandStorage.TryAdd(method.Name, new Command(() => method.Invoke(this, null)));
+            }
         }
         #endregion
     }

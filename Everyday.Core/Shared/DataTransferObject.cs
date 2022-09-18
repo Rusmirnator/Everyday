@@ -1,8 +1,9 @@
 ﻿using Everyday.Core.Interfaces;
+using System.Reflection;
 
 namespace Everyday.Core.Shared
 {
-    public class DataTransferObject : IConveyOperationResult
+    public class DataTransferObject : IConveyOperationResult, IConsumeData, IFeedData
     {
         public int StatusCode { get; set; }
         public string? Message { get; set; }
@@ -11,6 +12,22 @@ namespace Everyday.Core.Shared
         public DataTransferObject()
         {
             Result = this;
+        }
+
+        public void Consume<TFeed, TConsumer>(TFeed source)
+        {
+            foreach (PropertyInfo property in typeof(TFeed).GetProperties())
+            {
+                System.Diagnostics.Debug.WriteLine(property.Name);
+            }
+        }
+
+        public void Feed<TFeed, TConsumer>(TFeed target)
+        {
+            foreach (PropertyInfo property in typeof(TConsumer).GetProperties())
+            {
+                System.Diagnostics.Debug.WriteLine(property.Name);
+            }
         }
     }
 }

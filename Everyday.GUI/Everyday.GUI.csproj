@@ -93,6 +93,9 @@
 	  <MauiXaml Update="Pages\Views\ItemEditor.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Views\ItemList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Views\Menu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -114,10 +117,6 @@
 	  <PackageReference Include="ZXing.Net.Maui.Jgdev">
 	    <Version>1.0.5</Version>
 	  </PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Utilities\" />
 	</ItemGroup>
 
 </Project>

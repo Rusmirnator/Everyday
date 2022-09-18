@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Everyday.GUI.Pages.Views.ItemList"
+             xmlns:viewModels="clr-namespace:Everyday.GUI.Pages.ViewModels"
+             xmlns:base="clr-namespace:Everyday.GUI.Base"
+             Title="ItemList">
+    <ContentPage.BindingContext>
+        <base:DependencyInjectionSource Type="{x:Type viewModels:ItemListViewModel}" />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <base:EventToCommand EventName="Loaded"
+                             Command="{Binding InitCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout HorizontalOptions="FillAndExpand" 
+                         VerticalOptions="FillAndExpand"
+                         Spacing="5">
+        <HorizontalStackLayout HorizontalOptions="Fill" 
+                               VerticalOptions="Start">
+            <Border Margin="0,3,3,0" HorizontalOptions="Fill">
+                <Editor Text="{Binding SearchTerm, UpdateSourceEventName=PropertyChanged}" 
+                        Placeholder="Search by name or code..."
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Fill" />
+            </Border>
+            <Button Text="Scan" 
+                        Command="{Binding OpenScannerCommand}" 
+                        HorizontalOptions="End"
+                        VerticalOptions="Fill"/>
+        </HorizontalStackLayout>
+        <ScrollView>
+            <ListView ItemsSource="{Binding Items}"
+                        IsRefreshing="{Binding IsWaitIndicatorVisible, Mode=TwoWay}"
+                        RefreshCommand="{Binding RefreshCommand}"
+                        SelectedItem="{Binding SelectedItem}"
+                        IsPullToRefreshEnabled="True"
+                        HorizontalOptions="Fill">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"
+                                  Detail="{Binding Description}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <base:EventToCommand EventName="ItemTapped"
+                                         Command="{Binding AlterItemCommand}"/>
+                </ListView.Behaviors>
+            </ListView>
+        </ScrollView>
+        <Button Text="Create new item" 
+                Command="{Binding CreateItemCommand}" 
+                HorizontalOptions="Fill"
+                VerticalOptions="End"/>
+    </VerticalStackLayout>
+</ContentPage>

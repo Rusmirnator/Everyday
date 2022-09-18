@@ -57,7 +57,8 @@ public static class MauiProgram
                        .AddSingleton<ErrorViewModel>()
                        .AddSingleton<PurchasesViewModel>()
                        .AddSingleton<ScannerViewModel>()
-                       .AddSingleton<ItemEditorViewModel>();
+                       .AddSingleton<ItemEditorViewModel>()
+                       .AddSingleton<ItemListViewModel>();
     }
 
     private static IServiceCollection AddServices(this IServiceCollection services)
