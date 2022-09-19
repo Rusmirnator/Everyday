@@ -12,8 +12,9 @@
         <base:EventToCommand EventName="Loaded"
                              Command="{Binding InitCommand}"/>
     </ContentPage.Behaviors>
-    <VerticalStackLayout HorizontalOptions="FillAndExpand" 
+    <VerticalStackLayout HorizontalOptions="FillAndExpand"
                          VerticalOptions="FillAndExpand"
+                         MinimumHeightRequest="200"
                          Spacing="5">
         <HorizontalStackLayout HorizontalOptions="Fill" 
                                VerticalOptions="Start">

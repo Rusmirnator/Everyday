@@ -1,4 +1,5 @@
-﻿using Everyday.Core.Interfaces;
+﻿using Everyday.Core.Attributes;
+using Everyday.Core.Interfaces;
 using System.Reflection;
 
 namespace Everyday.Core.Shared
@@ -14,11 +15,15 @@ namespace Everyday.Core.Shared
             Result = this;
         }
 
-        public void Consume<TFeed, TConsumer>(TFeed source)
+        public void Consume<TFeed, TConsumer>(TFeed source) where TConsumer : class
         {
-            foreach (PropertyInfo property in typeof(TFeed).GetProperties())
+            foreach (PropertyInfo property in typeof(TFeed)
+                                                .GetProperties()
+                                                    .Where(p => p.GetCustomAttribute<ConsumableAttribute>() is not null))
             {
-                System.Diagnostics.Debug.WriteLine(property.Name);
+                typeof(TConsumer)
+                    .GetProperty(property.Name)!
+                        .SetValue(this, property.GetValue(source));
             }
         }
 

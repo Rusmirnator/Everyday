@@ -17,6 +17,6 @@ namespace Everyday.Core.Interfaces
         /// <typeparam name="TFeed"></typeparam>
         /// <typeparam name="TConsumer"></typeparam>
         /// <param name="source">Instance providing data to consume.</param>
-        public void Consume<TFeed, TConsumer>(TFeed source);
+        public void Consume<TFeed, TConsumer>(TFeed source) where TConsumer : class;
     }
 }

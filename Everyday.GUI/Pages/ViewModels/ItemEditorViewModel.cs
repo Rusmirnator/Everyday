@@ -307,7 +307,8 @@ namespace Everyday.GUI.Pages.ViewModels
                 Price = Price,
             };
             //Not implemented yet.
-            alteredItem.Consume<ItemEditorViewModel, Item>(this);
+            //Item testItem = new();
+            //testItem.Consume<ItemEditorViewModel, Item>(this);
 
             if (!string.IsNullOrEmpty(string.Concat(ManufacturerName, ManufacturerDescription)) && SelectedManufacturer is null)
             {
@@ -316,6 +317,11 @@ namespace Everyday.GUI.Pages.ViewModels
                     Name = ManufacturerName,
                     Description = ManufacturerDescription
                 };
+            }
+
+            if (SelectedManufacturer is not null)
+            {
+                alteredItem.Manufacturer = SelectedManufacturer;
             }
 
             alteredItem.ItemDefinition = new ItemDefinition
