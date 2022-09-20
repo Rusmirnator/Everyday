@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace Everyday.Core.Attributes
         /// <param name="consumerType">Consumer type.</param>
         /// <param name="consumerName">Name of consumer instance - if left empty, marked property or field becomes available for consumption for all type compliant consumers.</param>
         /// <param name="path">Consumer's member name.</param>
-        public ConsumableAttribute(Type consumerType, string? consumerName = null, string? path = null)
+        public ConsumableAttribute(Type consumerType, string? consumerName = null, [CallerMemberName] string? path = null)
         {
             this.consumerType = consumerType;
             this.consumerName = consumerName;
@@ -34,7 +35,25 @@ namespace Everyday.Core.Attributes
         #endregion
 
         #region Public API
+        public bool IsMatched(string? consumerName)
+        {
+            if (string.IsNullOrEmpty(this.consumerName))
+            {
+                return true;
+            }
 
+            return !string.IsNullOrEmpty(this.consumerName) && this.consumerName.Equals(consumerName ?? string.Empty, StringComparison.Ordinal);
+        }
+
+        public bool IsTypeCompliant(Type consumerType)
+        {
+            return this.consumerType is not null && consumerType is not null && this.consumerType.Equals(consumerType);
+        }
+
+        public string? GetPath()
+        {
+            return path;
+        }
         #endregion
     }
 }

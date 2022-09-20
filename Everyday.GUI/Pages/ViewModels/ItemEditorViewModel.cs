@@ -161,14 +161,14 @@ namespace Everyday.GUI.Pages.ViewModels
             set { _ = SetValue(value); }
         }
 
-        [Consumable(typeof(Manufacturer))]
+        [Consumable(typeof(Manufacturer), path: "Name")]
         public string ManufacturerName
         {
             get { return GetValue<string>(); }
             set { _ = SetValue(value); }
         }
 
-        [Consumable(typeof(Manufacturer))]
+        [Consumable(typeof(Manufacturer), path: "Description")]
         public string ManufacturerDescription
         {
             get { return GetValue<string>(); }
@@ -307,8 +307,11 @@ namespace Everyday.GUI.Pages.ViewModels
                 Price = Price,
             };
             //Not implemented yet.
-            //Item testItem = new();
-            //testItem.Consume<ItemEditorViewModel, Item>(this);
+            Item testItem = new();
+            testItem.Consume<ItemEditorViewModel, Item>(this);
+
+            Manufacturer testManufacturer = new();
+            testManufacturer.Consume<ItemEditorViewModel, Manufacturer>(this);
 
             if (!string.IsNullOrEmpty(string.Concat(ManufacturerName, ManufacturerDescription)) && SelectedManufacturer is null)
             {

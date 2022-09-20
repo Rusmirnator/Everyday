@@ -1,6 +1,7 @@
 ﻿using Everyday.Core.Attributes;
 using Everyday.Core.Interfaces;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Everyday.Core.Shared
 {
@@ -17,13 +18,19 @@ namespace Everyday.Core.Shared
 
         public void Consume<TFeed, TConsumer>(TFeed source) where TConsumer : class
         {
-            foreach (PropertyInfo property in typeof(TFeed)
-                                                .GetProperties()
-                                                    .Where(p => p.GetCustomAttribute<ConsumableAttribute>() is not null))
+            var consumables = typeof(TFeed)
+                                .GetProperties()
+                                    .Where(p => p.GetCustomAttribute<ConsumableAttribute>() is not null)
+                                        .Select(p => new { Property = p, Attribute = p.GetCustomAttribute<ConsumableAttribute>() })
+                                            .Where(c => c.Attribute!.IsTypeCompliant(typeof(TConsumer)))
+                                                .ToDictionary(c => c.Attribute!.GetPath() ?? c.Property.Name);
+
+            foreach (PropertyInfo property in typeof(TConsumer).GetProperties())
             {
-                typeof(TConsumer)
-                    .GetProperty(property.Name)!
-                        .SetValue(this, property.GetValue(source));
+                if (consumables.TryGetValue(property.Name, out var consumable))
+                {
+                    property.SetValue(this, consumable.Property.GetValue(source), null);
+                }
             }
         }
 
