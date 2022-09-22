@@ -3,6 +3,7 @@ using Everyday.Data.Interfaces;
 using System.Windows.Input;
 using Everyday.Services.Interfaces;
 using Everyday.Core.Interfaces;
+using Everyday.Core.Attributes;
 
 namespace Everyday.GUI
 {
@@ -78,5 +79,11 @@ namespace Everyday.GUI
             return !string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password);
         }
         #endregion
+
+        [Command]
+        public void Beep()
+        {
+            System.Diagnostics.Debug.WriteLine("beep!");
+        }
     }
 }

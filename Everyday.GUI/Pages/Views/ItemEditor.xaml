@@ -80,6 +80,7 @@
                     <Entry 
                         Text="{Binding Width, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Width"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -88,6 +89,7 @@
                     <Entry 
                         Text="{Binding Height, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Height"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -96,6 +98,7 @@
                     <Entry 
                         Text="{Binding Depth, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Depth"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -104,6 +107,7 @@
                     <Entry
                         Text="{Binding Weight, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Weight"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -112,6 +116,7 @@
                     <Entry
                         Text="{Binding Price, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Price"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -166,6 +171,7 @@
                     <Entry 
                         Text="{Binding Energy, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Energy Kcal"
                         VerticalOptions="Center"
                         HorizontalOptions="Fill" />
@@ -174,6 +180,7 @@
                     <Entry 
                         Text="{Binding Protein, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Protein"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -182,6 +189,7 @@
                     <Entry 
                         Text="{Binding Carbohydrates, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Carbohydrates"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -190,6 +198,7 @@
                     <Entry 
                         Text="{Binding Sugars, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Sugars"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -198,6 +207,7 @@
                     <Entry 
                         Text="{Binding Fat, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Fat"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -206,6 +216,7 @@
                     <Entry 
                         Text="{Binding SaturatedFat, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Saturated fat"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -214,6 +225,7 @@
                     <Entry 
                         Text="{Binding Fiber, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
+                        Keyboard="Numeric"
                         Placeholder="Fiber"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
@@ -223,6 +235,7 @@
                         Text="{Binding Salt, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Go"
                         Placeholder="Salt"
+                        Keyboard="Numeric"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
                 </Border>

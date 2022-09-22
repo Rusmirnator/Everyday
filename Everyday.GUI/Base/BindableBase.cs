@@ -1,6 +1,7 @@
 ﻿using Everyday.Core.Attributes;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -122,10 +123,21 @@ namespace Everyday.GUI.Base
         #region Private API
         private void CreateCommands()
         {
-            foreach (MethodInfo method in GetType().GetMethods().Where(m => m.GetCustomAttribute(typeof(CommandAttribute)) is not null))
-            {
-                CommandStorage.TryAdd(method.Name, new Command(() => method.Invoke(this, null)));
-            }
+            //var commandParameters = GetType()
+                                        //.GetRuntimeMethods()
+                                        //    .FirstOrDefault(m => m.Name == "RefreshAsync")
+                                        //        .GetParameters()
+                                        //            .Select(p => Expression.Parameter(p.ParameterType))
+                                        //                .ToArray();
+
+            //handler = Expression.Lambda
+            //    (
+            //            eventInfo.EventHandlerType,
+            //            Expression.Call(Expression.Constant(action), actionInvoke, commandParameters[0], commandParameters[1]),
+            //            commandParameters
+            //    ).Compile();
+
+            //eventInfo.AddEventHandler(item, handler);
         }
         #endregion
     }
