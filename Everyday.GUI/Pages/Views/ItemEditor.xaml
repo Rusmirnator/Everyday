@@ -134,7 +134,7 @@
                         Text="{Binding ManufacturerName, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
                         Placeholder="Name"
-                        IsReadOnly="{Binding IsManufacturerEditable, Mode=TwoWay}"
+                        IsReadOnly="{Binding IsManufacturerDataEditLocked, Mode=TwoWay}"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
                 </Border>

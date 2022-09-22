@@ -131,7 +131,7 @@ namespace Everyday.GUI.Pages.ViewModels
             set { _ = SetValue(value); }
         }
 
-        public bool IsManufacturerEditable
+        public bool IsManufacturerDataEditLocked
         {
             get { return GetValue<bool>(); }
             set { _ = SetValue(value); }
@@ -197,14 +197,26 @@ namespace Everyday.GUI.Pages.ViewModels
         public string ManufacturerName
         {
             get { return GetValue<string>(); }
-            set { _ = SetValue(value); }
+            set
+            {
+                if (SetValue(value))
+                {
+                    (SaveCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         [Consumable(typeof(Manufacturer), path: "Description")]
         public string ManufacturerDescription
         {
             get { return GetValue<string>(); }
-            set { _ = SetValue(value); }
+            set
+            {
+                if (SetValue(value))
+                {
+                    (SaveCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         [Consumable(typeof(Consumable))]
@@ -313,7 +325,9 @@ namespace Everyday.GUI.Pages.ViewModels
             ItemCategories = new(typeof(ItemCateoryType).ToEnumerable());
             MeasureUnits = new(typeof(MeasureUnit).ToEnumerable());
 
-            Manufacturers = new(await manufacturerService.GetManufacturersAsync().ConfigureAwait(false));
+            Manufacturers = new(await manufacturerService.GetManufacturersAsync());
+            Manufacturers.Add(new Manufacturer());
+
 
             if (AlteredItem is not null)
             {
@@ -330,13 +344,13 @@ namespace Everyday.GUI.Pages.ViewModels
             Item alteredItem = new();
             alteredItem.Consume<ItemEditorViewModel, Item>(this);
 
-            if (!string.IsNullOrEmpty(string.Concat(ManufacturerName, ManufacturerDescription)) && SelectedManufacturer is null)
+            if (!string.IsNullOrEmpty(string.Concat(ManufacturerName, ManufacturerDescription)) && !IsManufacturerDataEditLocked)
             {
                 alteredItem.Manufacturer = new();
                 alteredItem.Manufacturer.Consume<ItemEditorViewModel, Manufacturer>(this);
             }
 
-            if (SelectedManufacturer is not null)
+            if (!string.IsNullOrEmpty(SelectedManufacturer?.Name))
             {
                 alteredItem.Manufacturer = SelectedManufacturer;
             }
@@ -386,16 +400,19 @@ namespace Everyday.GUI.Pages.ViewModels
 
         private void SelectManufacturer()
         {
-            if (SelectedManufacturer is null)
+            if (SelectedManufacturer is null || SelectedManufacturer is not null && SelectedManufacturer.Id == 0)
             {
-                IsManufacturerEditable = true;
+                IsManufacturerDataEditLocked = false;
+
+                ManufacturerName = string.Empty;
+                ManufacturerDescription = string.Empty;
                 return;
             }
 
             ManufacturerName = SelectedManufacturer.Name;
             ManufacturerDescription = SelectedManufacturer.Description;
 
-            IsManufacturerEditable = false;
+            IsManufacturerDataEditLocked = true;
         }
 
         private void SelectItemCategory()
@@ -479,11 +496,6 @@ namespace Everyday.GUI.Pages.ViewModels
             SelectedWeightMeasureUnit = MeasureUnits.FirstOrDefault(u => u.Value == AlteredItem.ItemDefinition.WeightMeasureUnitId);
             SelectedDimensionsMeasureUnit = MeasureUnits.FirstOrDefault(u => u.Value == AlteredItem.ItemDefinition.DimensionsMeasureUnitId);
             SelectedManufacturer = Manufacturers.FirstOrDefault(m => m.Id == AlteredItem?.Manufacturer?.Id);
-
-            if (AlteredConsumable is null)
-            {
-                return;
-            }
         }
 
         private void InitializeCommands()
@@ -545,7 +557,8 @@ namespace Everyday.GUI.Pages.ViewModels
         #region CanExecute
         public bool CanSave()
         {
-            return SelectedManufacturer is not null
+            return !string.IsNullOrEmpty(ManufacturerName)
+                && !string.IsNullOrEmpty(ManufacturerDescription)
                 && SelectedItemCategory is not null
                 && SelectedDimensionsMeasureUnit is not null
                 && SelectedWeightMeasureUnit is not null;

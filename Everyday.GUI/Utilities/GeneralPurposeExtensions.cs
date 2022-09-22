@@ -1,4 +1,5 @@
 ﻿using Everyday.Core.Shared;
+using System.Reflection;
 
 namespace Everyday.GUI.Utilities
 {
