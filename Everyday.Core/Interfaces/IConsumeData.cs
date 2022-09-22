@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Everyday.Core.Interfaces
+﻿namespace Everyday.Core.Interfaces
 {
     /// <summary>
     /// Provides methods to consume data from ConsumableAttribute marked members.

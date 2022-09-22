@@ -121,8 +121,8 @@
                 <Label Text="Manufacturer"/>
                 <Border HorizontalOptions="Fill">
                     <Picker ItemsSource="{Binding Manufacturers}"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedManufacturer}">
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedManufacturer, Mode=TwoWay}">
                         <Picker.Behaviors>
                             <base:EventToCommand EventName="SelectedIndexChanged"
                                                  Command="{Binding SelectManufacturerCommand}"/>
@@ -134,6 +134,7 @@
                         Text="{Binding ManufacturerName, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
                         Placeholder="Name"
+                        IsReadOnly="{Binding IsManufacturerEditable, Mode=TwoWay}"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
                 </Border>
@@ -142,6 +143,7 @@
                         Text="{Binding ManufacturerDescription, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                         ReturnType="Next"
                         Placeholder="Description"
+                        IsReadOnly="{Binding IsManufacturerEditable, Mode=TwoWay}"
                         VerticalOptions="Center" 
                         HorizontalOptions="Fill" />
                 </Border>
@@ -226,7 +228,7 @@
                 </Border>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="3" IsVisible="{Binding IsChemicalEditorGroupVisible, Mode=TwoWay}">
-                
+
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="3" IsVisible="{Binding IsContainerEditorGroupVisible, Mode=TwoWay}">
 

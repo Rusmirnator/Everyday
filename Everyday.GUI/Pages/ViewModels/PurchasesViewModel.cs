@@ -1,8 +1,4 @@
-﻿using Everyday.Core.Models;
-using Everyday.GUI.Base;
-using Everyday.Services.Interfaces;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using Everyday.GUI.Base;
 
 namespace Everyday.GUI.Pages.ViewModels
 {

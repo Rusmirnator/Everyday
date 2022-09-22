@@ -6,6 +6,8 @@ using Everyday.Core.Shared;
 using Everyday.GUI.Base;
 using Everyday.GUI.Utilities;
 using Everyday.Services.Interfaces;
+using Microsoft.Extensions.Options;
+using Microsoft.Maui.Layouts;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -48,19 +50,37 @@ namespace Everyday.GUI.Pages.ViewModels
         public BindableEnum SelectedItemCategory
         {
             get { return GetValue<BindableEnum>(); }
-            set { _ = SetValue(value); }
+            set
+            {
+                if (SetValue(value))
+                {
+                    (SaveCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         public BindableEnum SelectedWeightMeasureUnit
         {
             get { return GetValue<BindableEnum>(); }
-            set { _ = SetValue(value); }
+            set
+            {
+                if (SetValue(value))
+                {
+                    (SaveCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         public BindableEnum SelectedDimensionsMeasureUnit
         {
             get { return GetValue<BindableEnum>(); }
-            set { _ = SetValue(value); }
+            set
+            {
+                if (SetValue(value))
+                {
+                    (SaveCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         public ObservableCollection<Manufacturer> Manufacturers
@@ -72,7 +92,13 @@ namespace Everyday.GUI.Pages.ViewModels
         public Manufacturer SelectedManufacturer
         {
             get { return GetValue<Manufacturer>(); }
-            set { _ = SetValue(value); }
+            set
+            {
+                if (SetValue(value))
+                {
+                    (SaveCommand as Command).ChangeCanExecute();
+                }
+            }
         }
 
         public Consumable AlteredConsumable
@@ -100,6 +126,12 @@ namespace Everyday.GUI.Pages.ViewModels
         }
 
         public bool IsContainerEditorGroupVisible
+        {
+            get { return GetValue<bool>(); }
+            set { _ = SetValue(value); }
+        }
+
+        public bool IsManufacturerEditable
         {
             get { return GetValue<bool>(); }
             set { _ = SetValue(value); }
@@ -295,31 +327,13 @@ namespace Everyday.GUI.Pages.ViewModels
         {
             IsWaitIndicatorVisible = true;
 
-            Item alteredItem = new Item
-            {
-                Code = Code,
-                Name = Name,
-                Description = Description,
-                Width = Width,
-                Height = Height,
-                Depth = Depth,
-                Weight = Weight,
-                Price = Price,
-            };
-            //Not implemented yet.
-            Item testItem = new();
-            testItem.Consume<ItemEditorViewModel, Item>(this);
-
-            Manufacturer testManufacturer = new();
-            testManufacturer.Consume<ItemEditorViewModel, Manufacturer>(this);
+            Item alteredItem = new();
+            alteredItem.Consume<ItemEditorViewModel, Item>(this);
 
             if (!string.IsNullOrEmpty(string.Concat(ManufacturerName, ManufacturerDescription)) && SelectedManufacturer is null)
             {
-                alteredItem.Manufacturer = new Manufacturer
-                {
-                    Name = ManufacturerName,
-                    Description = ManufacturerDescription
-                };
+                alteredItem.Manufacturer = new();
+                alteredItem.Manufacturer.Consume<ItemEditorViewModel, Manufacturer>(this);
             }
 
             if (SelectedManufacturer is not null)
@@ -344,17 +358,8 @@ namespace Everyday.GUI.Pages.ViewModels
                 return;
             }
 
-            Consumable alteredConsumable = new Consumable
-            {
-                Energy = Energy,
-                Protein = Protein,
-                Carbohydrates = Carbohydrates,
-                Sugars = Sugars,
-                Fat = Fat,
-                SaturatedFat = SaturatedFat,
-                Fiber = Fiber,
-                Salt = Salt
-            };
+            Consumable alteredConsumable = new();
+            alteredConsumable.Consume<ItemEditorViewModel, Consumable>(this);
 
             Item ownerItem = await itemService.GetItemByCodeAsync(Code);
             alteredConsumable.ItemId = ownerItem.Id;
@@ -383,11 +388,14 @@ namespace Everyday.GUI.Pages.ViewModels
         {
             if (SelectedManufacturer is null)
             {
+                IsManufacturerEditable = true;
                 return;
             }
 
             ManufacturerName = SelectedManufacturer.Name;
             ManufacturerDescription = SelectedManufacturer.Description;
+
+            IsManufacturerEditable = false;
         }
 
         private void SelectItemCategory()
@@ -462,37 +470,20 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 return;
             }
-            //Not implemented yet.
-            AlteredItem.Feed<ItemEditorViewModel, Item>(this);
 
-            Code = AlteredItem.Code;
-            Name = AlteredItem.Name;
-            Description = AlteredItem.Description;
-            Width = AlteredItem.Width;
-            Height = AlteredItem.Height;
-            Depth = AlteredItem.Depth;
-            Weight = AlteredItem.Weight;
-            Price = AlteredItem.Price;
-            ManufacturerName = AlteredItem?.Manufacturer?.Name;
-            ManufacturerDescription = AlteredItem?.Manufacturer?.Description;
+            AlteredItem.Feed<ItemEditorViewModel, Item>(this);
+            AlteredItem?.Manufacturer?.Feed<ItemEditorViewModel, Manufacturer>(this);
+            AlteredConsumable?.Feed<ItemEditorViewModel, Consumable>(this);
 
             SelectedItemCategory = ItemCategories.FirstOrDefault(c => c.Value == AlteredItem.ItemDefinition.ItemCategoryTypeId);
             SelectedWeightMeasureUnit = MeasureUnits.FirstOrDefault(u => u.Value == AlteredItem.ItemDefinition.WeightMeasureUnitId);
             SelectedDimensionsMeasureUnit = MeasureUnits.FirstOrDefault(u => u.Value == AlteredItem.ItemDefinition.DimensionsMeasureUnitId);
+            SelectedManufacturer = Manufacturers.FirstOrDefault(m => m.Id == AlteredItem?.Manufacturer?.Id);
 
             if (AlteredConsumable is null)
             {
                 return;
             }
-
-            Energy = AlteredConsumable.Energy;
-            Protein = AlteredConsumable.Protein;
-            Carbohydrates = AlteredConsumable.Carbohydrates;
-            Sugars = AlteredConsumable.Sugars;
-            Fat = AlteredConsumable.Fat;
-            SaturatedFat = AlteredConsumable.SaturatedFat;
-            Fiber = AlteredConsumable.Fiber;
-            Salt = AlteredConsumable.Salt;
         }
 
         private void InitializeCommands()
@@ -554,7 +545,10 @@ namespace Everyday.GUI.Pages.ViewModels
         #region CanExecute
         public bool CanSave()
         {
-            return true;
+            return SelectedManufacturer is not null
+                && SelectedItemCategory is not null
+                && SelectedDimensionsMeasureUnit is not null
+                && SelectedWeightMeasureUnit is not null;
         }
         #endregion
     }

@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Everyday.Core.Interfaces
+﻿namespace Everyday.Core.Interfaces
 {
     public interface IConveyOperationResult
     {
