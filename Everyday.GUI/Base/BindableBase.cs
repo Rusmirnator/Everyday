@@ -1,6 +1,7 @@
 ﻿using Everyday.Core.Attributes;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -16,15 +17,15 @@ namespace Everyday.GUI.Base
         #region Fields & Properties
         public event PropertyChangedEventHandler PropertyChanged;
         private ConcurrentDictionary<string, object> DynamicStorage { get; }
-        private ConcurrentDictionary<string, ICommand> CommandStorage { get; }
+        private ConcurrentDictionary<string, ICommand> BindableCommands { get; }
         #endregion
 
         #region CTOR
         protected BindableBase()
         {
             DynamicStorage = new();
-            CommandStorage = new();
-            CreateCommands();
+            BindableCommands = new();
+            FetchCommands();
         }
         #endregion
 
@@ -121,23 +122,22 @@ namespace Everyday.GUI.Base
         #endregion
 
         #region Private API
-        private void CreateCommands()
+        private void FetchCommands()
         {
-            //var commandParameters = GetType()
-                                        //.GetRuntimeMethods()
-                                        //    .FirstOrDefault(m => m.Name == "RefreshAsync")
-                                        //        .GetParameters()
-                                        //            .Select(p => Expression.Parameter(p.ParameterType))
-                                        //                .ToArray();
+            var commands = GetType()
+                            .GetMethods()
+                                .Where(m => MethodBase.GetMethodFromHandle(m.MethodHandle).GetCustomAttribute<CommandAttribute>() is not null)
+                                    .Select(m => new
+                                    {
+                                        MethodName = m.Name,
+                                        Method = new BindableCommand(() => MethodBase.GetMethodFromHandle(m.MethodHandle).Invoke(null, null)),
+                                        Attribute = MethodBase.GetMethodFromHandle(m.MethodHandle).GetCustomAttribute<CommandAttribute>()
+                                    }).ToDictionary(a => a.MethodName);
+        }
 
-            //handler = Expression.Lambda
-            //    (
-            //            eventInfo.EventHandlerType,
-            //            Expression.Call(Expression.Constant(action), actionInvoke, commandParameters[0], commandParameters[1]),
-            //            commandParameters
-            //    ).Compile();
-
-            //eventInfo.AddEventHandler(item, handler);
+        private T CreateBindableCommand<T>(MethodInfo method) where T : BindableCommandBase
+        {
+            return null;
         }
         #endregion
     }

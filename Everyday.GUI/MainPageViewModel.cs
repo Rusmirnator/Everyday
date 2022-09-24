@@ -43,7 +43,7 @@ namespace Everyday.GUI
         #endregion
 
         #region CTOR
-        public MainPageViewModel(IAuthorizationService authorizationService, IHttpClientService httpClientService)
+        public MainPageViewModel(IAuthorizationService authorizationService)
         {
             LoginCommand = new Command(async () => await LoginAsync(), () => CanLogin());
             this.authorizationService = authorizationService;
