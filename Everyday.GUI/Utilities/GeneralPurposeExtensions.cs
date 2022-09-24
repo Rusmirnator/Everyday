@@ -1,5 +1,4 @@
 ﻿using Everyday.Core.Shared;
-using System.Reflection;
 
 namespace Everyday.GUI.Utilities
 {
@@ -36,6 +35,24 @@ namespace Everyday.GUI.Utilities
                 throw new ArgumentNullException(nameof(representation));
             }
             return (T)Enum.Parse(typeof(T), representation.Name);
+        }
+
+        /// <summary>
+        /// Safely executes task in FireAndForget manner - allows to move with code execution immediately after executing.
+        /// </summary>
+        /// <param name="task">Task to be safely executed.</param>
+        /// <param name="continueOnCapturedContext">Task's awaiter configuration.</param>
+        /// <param name="onException">A delegate to be executed when task throws an exception</param>
+        public static async void FireAndForget(this Task task, bool continueOnCapturedContext = true, Action<Exception> onException = null)
+        {
+            try
+            {
+                await task.ConfigureAwait(continueOnCapturedContext);
+            }
+            catch (Exception ex) when (onException != null)
+            {
+                onException?.Invoke(ex);
+            }
         }
     }
 }

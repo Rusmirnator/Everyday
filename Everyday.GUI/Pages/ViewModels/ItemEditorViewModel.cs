@@ -6,8 +6,6 @@ using Everyday.Core.Shared;
 using Everyday.GUI.Base;
 using Everyday.GUI.Utilities;
 using Everyday.Services.Interfaces;
-using Microsoft.Extensions.Options;
-using Microsoft.Maui.Layouts;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

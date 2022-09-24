@@ -1,5 +1,4 @@
 ﻿using Everyday.GUI.Base;
-using Everyday.Data.Interfaces;
 using System.Windows.Input;
 using Everyday.Services.Interfaces;
 using Everyday.Core.Interfaces;

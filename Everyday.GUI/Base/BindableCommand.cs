@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
@@ -40,7 +35,7 @@ namespace Everyday.GUI.Base
         /// <summary>
         /// Initializes new instance of BindableCommand class.
         /// </summary>
-        /// <param name="execute">A delegade to be invoked by BindableCommand, which takes an array of objects as a parameter.</param>
+        /// <param name="execute">A delegate to be invoked by BindableCommand.</param>
         public BindableCommand(Action execute)
         {
             this.execute = execute;
@@ -50,8 +45,8 @@ namespace Everyday.GUI.Base
         /// <summary>
         /// Initializes new instance of BindableCommand class.
         /// </summary>
-        /// <param name="execute">A delegade to be invoked by BindableCommand, which takes an array of objects as a parameter.</param>
-        /// <param name="canExecute">A delegade resolving BindableCommand execute possibility.</param>
+        /// <param name="execute">A delegate to be invoked by BindableCommand.</param>
+        /// <param name="canExecute">A delegate resolving BindableCommand execute possibility.</param>
         public BindableCommand(Action execute, Func<bool> canExecute)
         {
             this.execute = execute;
@@ -74,7 +69,7 @@ namespace Everyday.GUI.Base
         /// <summary>
         /// Initializes new instance of BindableCommand class.
         /// </summary>
-        /// <param name="execute">A delegade to be invoked by BindableCommand, which takes an array of objects as a parameter.</param>
+        /// <param name="execute">A delegate to be invoked by BindableCommand.</param>
         public BindableCommand(Action<T> execute)
         {
             this.execute = execute;
@@ -84,8 +79,8 @@ namespace Everyday.GUI.Base
         /// <summary>
         /// Initializes new instance of BindableCommand class.
         /// </summary>
-        /// <param name="execute">A delegade to be invoked by BindableCommand, which takes an array of objects as a parameter.</param>
-        /// <param name="canExecute">A delegade resolving BindableCommand execute possibility.</param>
+        /// <param name="execute">A delegate to be invoked by BindableCommand.</param>
+        /// <param name="canExecute">A delegate resolving BindableCommand execute possibility.</param>
         public BindableCommand(Action<T> execute, Func<T, bool> canExecute)
         {
             this.execute = execute;
