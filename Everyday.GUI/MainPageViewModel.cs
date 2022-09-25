@@ -56,7 +56,8 @@ namespace Everyday.GUI
         #endregion
 
         #region Commands
-        private async Task LoginAsync()
+        [AsyncCommand]
+        public async Task LoginAsync()
         {
             IsWaitIndicatorVisible = true;
 
@@ -84,7 +85,7 @@ namespace Everyday.GUI
         }
         #endregion
 
-        public static void ThrowException(Exception ex)
+        private static void ThrowException(Exception ex)
         {
             AnnounceAsync("Error", ex.Message, "Ok")
                 .FireAndForget();

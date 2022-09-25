@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {

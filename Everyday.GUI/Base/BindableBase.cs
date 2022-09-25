@@ -154,7 +154,7 @@ namespace Everyday.GUI.Base
                 CommandType.AsynchronousParametrized => new BindableAsyncCommand<object>(async
                                         (parameter) => await (Task)method.Invoke(null, new object[] { parameter }),
                                         (parameter) => (bool)GetCanExecute(attribute).Invoke(null, new object[] { parameter })),
-                _ => null,
+                _ => null
             };
         }
 

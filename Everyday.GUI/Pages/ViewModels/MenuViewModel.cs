@@ -1,4 +1,5 @@
-﻿using Everyday.GUI.Base;
+﻿using Everyday.Core.Attributes;
+using Everyday.GUI.Base;
 using System.Windows.Input;
 
 namespace Everyday.GUI.Pages.ViewModels
@@ -17,7 +18,8 @@ namespace Everyday.GUI.Pages.ViewModels
         #endregion
 
         #region Commands
-        private static async Task NavigateAsync(object selectedModule)
+        [AsyncCommand]
+        public static async Task NavigateAsync(object selectedModule)
         {
             await GoToPageAsync(selectedModule as string);
         }

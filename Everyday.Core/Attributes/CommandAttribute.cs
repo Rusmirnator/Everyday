@@ -8,8 +8,9 @@ namespace Everyday.Core.Attributes
     [AttributeUsage(AttributeTargets.Method)]
     public class CommandAttribute : Attribute
     {
-        public string? CommandName { get; private set; }
-        public string? CanExecuteMethodName { get; private set; }
+        protected const string CAN_EXECUTE_PREFIX = "Can";
+        protected string? CommandName { get; private set; }
+        protected string? CanExecuteMethodName { get; private set; }
 
         /// <summary>
         /// Initializes new instance of CommandAttribute class.
@@ -19,7 +20,7 @@ namespace Everyday.Core.Attributes
         public CommandAttribute([CallerMemberName] string? commandName = null, string? canExecuteMethodName = null)
         {
             CommandName = commandName;
-            CanExecuteMethodName = canExecuteMethodName;
+            CanExecuteMethodName = canExecuteMethodName ?? string.Concat(CAN_EXECUTE_PREFIX, commandName);
         }
     }
 }

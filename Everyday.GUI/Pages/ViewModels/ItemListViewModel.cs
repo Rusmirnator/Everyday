@@ -4,7 +4,6 @@ using Everyday.GUI.Base;
 using Everyday.GUI.Base.Interfaces;
 using Everyday.Services.Interfaces;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace Everyday.GUI.Pages.ViewModels
 {

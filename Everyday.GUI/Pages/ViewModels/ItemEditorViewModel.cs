@@ -303,7 +303,8 @@ namespace Everyday.GUI.Pages.ViewModels
         #endregion
 
         #region Commands
-        private async Task InitAsync()
+        [AsyncCommand]
+        public async Task InitAsync()
         {
             IsWaitIndicatorVisible = true;
 
@@ -316,7 +317,8 @@ namespace Everyday.GUI.Pages.ViewModels
             IsWaitIndicatorVisible = false;
         }
 
-        private async Task RefreshAsync()
+        [AsyncCommand]
+        public async Task RefreshAsync()
         {
             IsWaitIndicatorVisible = true;
 
@@ -335,7 +337,8 @@ namespace Everyday.GUI.Pages.ViewModels
             IsWaitIndicatorVisible = false;
         }
 
-        private async Task SaveAsync()
+        [AsyncCommand]
+        public async Task SaveAsync()
         {
             IsWaitIndicatorVisible = true;
 
@@ -396,7 +399,8 @@ namespace Everyday.GUI.Pages.ViewModels
             await GoToPageAsync("ItemList");
         }
 
-        private void SelectManufacturer()
+        [Command]
+        public void SelectManufacturer()
         {
             if (SelectedManufacturer is null || SelectedManufacturer is not null && SelectedManufacturer.Id == 0)
             {
@@ -413,7 +417,8 @@ namespace Everyday.GUI.Pages.ViewModels
             IsManufacturerDataEditLocked = true;
         }
 
-        private void SelectItemCategory()
+        [Command]
+        public void SelectItemCategory()
         {
             if (SelectedItemCategory is null)
             {
@@ -425,7 +430,8 @@ namespace Everyday.GUI.Pages.ViewModels
             ResolveEditorGroupsVisibility();
         }
 
-        private void SelectWeightMeasureUnit()
+        [Command]
+        public void SelectWeightMeasureUnit()
         {
             if (SelectedWeightMeasureUnit is null)
             {
@@ -435,7 +441,8 @@ namespace Everyday.GUI.Pages.ViewModels
             WeightMeasureUnit = SelectedWeightMeasureUnit.ToEnum<MeasureUnit>();
         }
 
-        private void SelectDimensionsMeasureUnit()
+        [Command]
+        public void SelectDimensionsMeasureUnit()
         {
             if (SelectedDimensionsMeasureUnit is null)
             {
@@ -445,7 +452,8 @@ namespace Everyday.GUI.Pages.ViewModels
             DimensionsMeasureUnit = SelectedDimensionsMeasureUnit.ToEnum<MeasureUnit>();
         }
 
-        private void CleanUp()
+        [Command]
+        public void CleanUp()
         {
             AlteredConsumable = null;
             AlteredItem = null;
