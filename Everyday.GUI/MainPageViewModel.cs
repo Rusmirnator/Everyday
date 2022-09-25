@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Everyday.Services.Interfaces;
 using Everyday.Core.Interfaces;
 using Everyday.Core.Attributes;
+using Everyday.GUI.Utilities;
 
 namespace Everyday.GUI
 {
@@ -23,7 +24,8 @@ namespace Everyday.GUI
             {
                 if (SetValue(value))
                 {
-                    (LoginCommand as Command).ChangeCanExecute();
+                    (LoginCommand as BindableAsyncCommand)
+                        .RaiseCanExecuteChanged();
                 }
             }
         }
@@ -34,7 +36,8 @@ namespace Everyday.GUI
             {
                 if (SetValue(value))
                 {
-                    (LoginCommand as Command).ChangeCanExecute();
+                    (LoginCommand as BindableAsyncCommand)
+                        .RaiseCanExecuteChanged();
                 }
             }
         }
@@ -44,10 +47,12 @@ namespace Everyday.GUI
         #region CTOR
         public MainPageViewModel(IAuthorizationService authorizationService)
         {
-            LoginCommand = new Command(async () => await LoginAsync(), () => CanLogin());
+            LoginCommand = new BindableAsyncCommand(async
+                () => await LoginAsync(),
+                () => CanLogin(),
+                (exception) => ThrowException(exception));
             this.authorizationService = authorizationService;
         }
-
         #endregion
 
         #region Commands
@@ -79,10 +84,10 @@ namespace Everyday.GUI
         }
         #endregion
 
-        [Command]
-        public void Beep()
+        public static void ThrowException(Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("beep!");
+            AnnounceAsync("Error", ex.Message, "Ok")
+                .FireAndForget();
         }
     }
 }

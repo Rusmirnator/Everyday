@@ -5,22 +5,10 @@ namespace Everyday.GUI.Base
 {
     public class BindableAsyncCommand : BindableCommandBase, IAsyncCommand
     {
-        #region Events
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute
-        /// </summary>
-        public new event EventHandler CanExecuteChanged
-        {
-            add => weakEventManager.AddEventHandler(value);
-            remove => weakEventManager.RemoveEventHandler(value);
-        }
-        #endregion
-
         #region Fields & Properties
         private readonly Func<Task> executeAsync;
         private readonly Action<Exception> executeOnException;
         private readonly bool continueOnCapturedContext;
-        private readonly WeakEventManager weakEventManager = new();
         #endregion
 
         #region CTOR
@@ -55,36 +43,16 @@ namespace Everyday.GUI.Base
             ExecuteAsync()
                 .FireAndForget(continueOnCapturedContext, executeOnException);
         }
-
-        /// <summary>
-        /// Raises the CanExecuteChanged event.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
-        }
         #endregion
     }
 
     public class BindableAsyncCommand<T> : BindableCommandBase, IAsyncCommand<T>
     {
-        #region Events
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute
-        /// </summary>
-        public new event EventHandler CanExecuteChanged
-        {
-            add => weakEventManager.AddEventHandler(value);
-            remove => weakEventManager.RemoveEventHandler(value);
-        }
-        #endregion
-
         #region Fields & Properties
         private readonly Func<T, Task> executeAsync;
         private new readonly Func<T, bool> canExecute;
         private readonly Action<Exception> executeOnException;
         private readonly bool continueOnCapturedContext;
-        private readonly WeakEventManager weakEventManager = new();
         #endregion
 
         #region CTOR

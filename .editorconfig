@@ -2,3 +2,6 @@
 
 # CS8766: Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
 dotnet_diagnostic.CS8766.severity = none
+
+# CS0067: The event 'BindableCommandBase.CanExecuteChanged' is never used
+dotnet_diagnostic.CS0067.severity = none

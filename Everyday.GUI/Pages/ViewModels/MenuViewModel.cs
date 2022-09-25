@@ -12,7 +12,7 @@ namespace Everyday.GUI.Pages.ViewModels
         #region CTOR
         public MenuViewModel()
         {
-            NavigateCommand = new Command(async (selectedModule) => await NavigateAsync(selectedModule));
+            NavigateCommand = new BindableAsyncCommand<object>(async (selectedModule) => await NavigateAsync(selectedModule));
         }
         #endregion
 

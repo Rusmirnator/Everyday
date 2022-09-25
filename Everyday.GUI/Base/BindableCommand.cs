@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using Microsoft.Maui;
+using System.Windows.Input;
 
 namespace Everyday.GUI.Base
 {
@@ -7,11 +8,21 @@ namespace Everyday.GUI.Base
     /// </summary>
     public abstract class BindableCommandBase : ICommand
     {
-        #region Fields & Properties
-        public event EventHandler CanExecuteChanged;
+        #region Events
+        /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add => weakEventManager.AddEventHandler(value);
+            remove => weakEventManager.RemoveEventHandler(value);
+        }
+        #endregion
 
+        #region Fields & Properties
         protected Action execute;
         protected Func<bool> canExecute;
+        protected WeakEventManager weakEventManager = new();
         #endregion
 
         #region Public API
@@ -23,6 +34,14 @@ namespace Everyday.GUI.Base
         public virtual void Execute(object parameter)
         {
             execute();
+        }
+
+        /// <summary>
+        /// Raises the CanExecuteChanged event.
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
         }
         #endregion
     }

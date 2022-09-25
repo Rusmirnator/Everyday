@@ -1,5 +1,6 @@
 ﻿using Everyday.Core.Models;
 using Everyday.GUI.Base;
+using Everyday.GUI.Base.Interfaces;
 using Everyday.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -11,9 +12,9 @@ namespace Everyday.GUI.Pages.ViewModels
         #region Fields & Properties
         private readonly IItemService itemService;
 
-        public ICommand OpenScannerCommand { get; set; }
-        public ICommand AlterItemCommand { get; set; }
-        public ICommand CreateItemCommand { get; set; }
+        public IAsyncCommand OpenScannerCommand { get; set; }
+        public IAsyncCommand AlterItemCommand { get; set; }
+        public IAsyncCommand CreateItemCommand { get; set; }
         public string SearchTerm
         {
             get { return GetValue<string>(); }
@@ -39,7 +40,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (AlterItemCommand as Command).ChangeCanExecute();
+                    (AlterItemCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -49,11 +50,11 @@ namespace Everyday.GUI.Pages.ViewModels
         #region CTOR
         public ItemListViewModel(IItemService itemService)
         {
-            OpenScannerCommand = new Command(async () => await OpenScannerAsync());
-            AlterItemCommand = new Command(async () => await OpenItemEditorAsync(false), () => CanAlterItem());
-            CreateItemCommand = new Command(async () => await OpenItemEditorAsync(true));
-            InitCommand = new Command(async () => await GetItemsAsync());
-            RefreshCommand = new Command(async () => await RefreshAsync());
+            OpenScannerCommand = new BindableAsyncCommand(async () => await OpenScannerAsync());
+            AlterItemCommand = new BindableAsyncCommand(async () => await OpenItemEditorAsync(false), () => CanAlterItem());
+            CreateItemCommand = new BindableAsyncCommand(async () => await OpenItemEditorAsync(true));
+            InitCommand = new BindableAsyncCommand(async () => await GetItemsAsync());
+            RefreshCommand = new BindableAsyncCommand(async () => await RefreshAsync());
             this.itemService = itemService;
         }
         #endregion

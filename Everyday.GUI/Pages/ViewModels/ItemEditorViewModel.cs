@@ -52,7 +52,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (SaveCommand as Command).ChangeCanExecute();
+                    (SaveCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (SaveCommand as Command).ChangeCanExecute();
+                    (SaveCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (SaveCommand as Command).ChangeCanExecute();
+                    (SaveCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (SaveCommand as Command).ChangeCanExecute();
+                    (SaveCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -199,7 +199,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (SaveCommand as Command).ChangeCanExecute();
+                    (SaveCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -212,7 +212,7 @@ namespace Everyday.GUI.Pages.ViewModels
             {
                 if (SetValue(value))
                 {
-                    (SaveCommand as Command).ChangeCanExecute();
+                    (SaveCommand as BindableAsyncCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -498,14 +498,14 @@ namespace Everyday.GUI.Pages.ViewModels
 
         private void InitializeCommands()
         {
-            InitCommand = new Command(async () => await InitAsync());
-            RefreshCommand = new Command(async () => await RefreshAsync());
-            CleanUpCommand = new Command(() => CleanUp());
-            SaveCommand = new Command(async () => await SaveAsync(), () => CanSave());
-            SelectManufacturerCommand = new Command(() => SelectManufacturer());
-            SelectItemCategoryCommand = new Command(() => SelectItemCategory());
-            SelectWeightMeasureUnitCommand = new Command(() => SelectWeightMeasureUnit());
-            SelectDimensionsMeasureUnitCommand = new Command(() => SelectDimensionsMeasureUnit());
+            InitCommand = new BindableAsyncCommand(async () => await InitAsync());
+            RefreshCommand = new BindableAsyncCommand(async () => await RefreshAsync());
+            CleanUpCommand = new BindableCommand(() => CleanUp());
+            SaveCommand = new BindableAsyncCommand(async () => await SaveAsync(), () => CanSave());
+            SelectManufacturerCommand = new BindableCommand(() => SelectManufacturer());
+            SelectItemCategoryCommand = new BindableCommand(() => SelectItemCategory());
+            SelectWeightMeasureUnitCommand = new BindableCommand(() => SelectWeightMeasureUnit());
+            SelectDimensionsMeasureUnitCommand = new BindableCommand(() => SelectDimensionsMeasureUnit());
         }
         #endregion
 
