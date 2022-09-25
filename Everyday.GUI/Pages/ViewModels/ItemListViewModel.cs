@@ -1,4 +1,5 @@
-﻿using Everyday.Core.Models;
+﻿using Everyday.Core.Attributes;
+using Everyday.Core.Models;
 using Everyday.GUI.Base;
 using Everyday.GUI.Base.Interfaces;
 using Everyday.Services.Interfaces;
@@ -68,22 +69,30 @@ namespace Everyday.GUI.Pages.ViewModels
 
             IsWaitIndicatorVisible = false;
         }
-        private static async Task OpenScannerAsync()
+
+        [AsyncCommand]
+        public static async Task OpenScannerAsync()
         {
             await GoToPageAsync("Error");
         }
 
-        private async Task OpenItemEditorAsync(bool createNew)
+        [AsyncCommand]
+        public async Task OpenItemEditorAsync(bool createNew)
         {
+            IsWaitIndicatorVisible = true;
+
             if (!createNew)
             {
                 Send(nameof(ItemEditorViewModel), nameof(SelectedItem), SelectedItem);
             }
 
             await GoToPageAsync("ItemEditor");
+
+            IsWaitIndicatorVisible = false;
         }
 
-        private async Task RefreshAsync()
+        [AsyncCommand]
+        public async Task RefreshAsync()
         {
             await GetItemsAsync();
         }

@@ -1,4 +1,5 @@
 ﻿using Everyday.Core.Attributes;
+using Everyday.Core.Dictionaries;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Reflection;
@@ -23,7 +24,7 @@ namespace Everyday.GUI.Base
         {
             DynamicStorage = new();
             BindableCommands = new();
-            FetchCommands();
+            ConvertCommands();
         }
         #endregion
 
@@ -120,22 +121,77 @@ namespace Everyday.GUI.Base
         #endregion
 
         #region Private API
-        private void FetchCommands()
+        private void ConvertCommands()
         {
-            var commands = GetType()
-                            .GetMethods()
-                                .Where(m => MethodBase.GetMethodFromHandle(m.MethodHandle).GetCustomAttribute<CommandAttribute>() is not null)
-                                    .Select(m => new
-                                    {
-                                        MethodName = m.Name,
-                                        Method = new BindableCommand(() => MethodBase.GetMethodFromHandle(m.MethodHandle).Invoke(null, null)),
-                                        Attribute = MethodBase.GetMethodFromHandle(m.MethodHandle).GetCustomAttribute<CommandAttribute>()
-                                    }).ToDictionary(a => a.MethodName);
+            foreach (MethodInfo method in GetMethods())
+            {
+                _ = BindableCommands.TryAdd(method.Name, CreateBindableCommand(method));
+            }
         }
 
-        private T CreateBindableCommand<T>(MethodInfo method) where T : BindableCommandBase
+        private ICommand CreateBindableCommand(MethodInfo method)
         {
-            return null;
+            var attribute = MethodBase
+                                .GetMethodFromHandle(method.MethodHandle)
+                                    .GetCustomAttributes(true)
+                                        .Cast<Attribute>()
+                                            .FirstOrDefault(attr => attr is CommandAttribute or AsyncCommandAttribute);
+
+            return RecognizeCommandType(method, out ParameterInfo parameter) switch
+            {
+                CommandType.Synchronous => new BindableCommand(
+                                        () => method.Invoke(null, null),
+                                        () => (bool)GetCanExecute(attribute).Invoke(null, null)),
+
+                CommandType.SynchronousParametrized => new BindableCommand<object>(
+                                        (parameter) => method.Invoke(null, new object[] { parameter }),
+                                        (parameter) => (bool)GetCanExecute(attribute).Invoke(null, new object[] { parameter })),
+
+                CommandType.Asynchronous => new BindableAsyncCommand(async
+                                        () => await (Task)method.Invoke(null, null),
+                                        () => (bool)GetCanExecute(attribute).Invoke(null, null)),
+
+                CommandType.AsynchronousParametrized => new BindableAsyncCommand<object>(async
+                                        (parameter) => await (Task)method.Invoke(null, new object[] { parameter }),
+                                        (parameter) => (bool)GetCanExecute(attribute).Invoke(null, new object[] { parameter })),
+                _ => null,
+            };
+        }
+
+        private IEnumerable<MethodInfo> GetMethods()
+        {
+            var methods = GetType()
+                            .GetMethods()
+                                .Where(m => MethodBase
+                                    .GetMethodFromHandle(m.MethodHandle)
+                                        .GetCustomAttributes(true)
+                                            .Where(att => att is CommandAttribute or AsyncCommandAttribute)
+                                                .Any());
+            return methods;
+        }
+
+        private static CommandType RecognizeCommandType(MethodInfo method, out ParameterInfo parameter)
+        {
+            parameter = null;
+            ParameterInfo[] parameters = method.GetParameters();
+
+            if (parameters.Any())
+            {
+                parameter = parameters.FirstOrDefault();
+            }
+
+            switch (method.ReturnType == typeof(Task))
+            {
+                case true:
+                    return parameter is not null ? CommandType.AsynchronousParametrized : CommandType.Asynchronous;
+                case false:
+                    return parameter is not null ? CommandType.SynchronousParametrized : CommandType.Synchronous;
+            }
+        }
+
+        private MethodInfo GetCanExecute(Attribute attribute)
+        {
+            return GetType().GetMethod((attribute as CommandAttribute).CanExecuteMethodName);
         }
         #endregion
     }

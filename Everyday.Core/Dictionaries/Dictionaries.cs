@@ -36,4 +36,12 @@
         Gramme = 1,
         Milimeter = 2
     }
+
+    public enum CommandType
+    {
+        Synchronous = 1,
+        SynchronousParametrized = 2,
+        Asynchronous = 4,
+        AsynchronousParametrized = 8
+    }
 }
