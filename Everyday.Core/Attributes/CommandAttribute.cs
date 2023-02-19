@@ -9,8 +9,8 @@ namespace Everyday.Core.Attributes
     public class CommandAttribute : Attribute
     {
         protected const string CAN_EXECUTE_PREFIX = "Can";
-        protected string? CommandName { get; private set; }
-        protected string? CanExecuteMethodName { get; private set; }
+        public string? CommandName { get; private set; }
+        public string? CanExecuteMethodName { get; private set; }
 
         /// <summary>
         /// Initializes new instance of CommandAttribute class.
