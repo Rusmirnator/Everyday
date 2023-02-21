@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Everyday.Core\Everyday.Core.csproj" />
+    <ProjectReference Include="..\Everyday.Core\Everyday.Domain.csproj" />
   </ItemGroup>
 
 </Project>

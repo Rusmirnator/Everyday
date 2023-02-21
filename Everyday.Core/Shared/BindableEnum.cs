@@ -1,4 +1,4 @@
-﻿namespace Everyday.Core.Shared
+﻿namespace Everyday.Domain.Shared
 {
     public class BindableEnum
     {

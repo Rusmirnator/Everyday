@@ -1,21 +1,15 @@
-﻿using Everyday.Core.Attributes;
-using Everyday.Core.Interfaces;
+﻿using Everyday.Domain.Attributes;
+using Everyday.Domain.Interfaces;
 using System.Reflection;
 
-namespace Everyday.Core.Shared
+namespace Everyday.Domain.Shared
 {
-    public class DataTransferObject : IConveyOperationResult, IConsumeData, IFeedData
+    public class DataTransferObject : IConsumeData, IFeedData
     {
-        #region Fields & Properties
-        public int StatusCode { get; set; }
-        public string? Message { get; set; }
-        public object? Result { get; set; }
-        #endregion
-
         #region CTOR
         public DataTransferObject()
         {
-            Result = this;
+
         }
         #endregion
 

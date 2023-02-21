@@ -73,8 +73,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Everyday.Data\Everyday.Data.csproj" />
-	  <ProjectReference Include="..\Everyday.Services\Everyday.Services.csproj" />
+	  <ProjectReference Include="..\Everyday.Application\Everyday.Application.csproj" />
+	  <ProjectReference Include="..\Everyday.Infrastructure\Everyday.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

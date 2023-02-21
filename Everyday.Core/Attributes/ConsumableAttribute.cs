@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Everyday.Core.Attributes
+namespace Everyday.Domain.Attributes
 {
     /// <summary>
     /// Provides mapping information for IConsumeData and IFeedData.

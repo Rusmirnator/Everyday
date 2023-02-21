@@ -1,11 +1,12 @@
-﻿using Everyday.Core.Attributes;
-using Everyday.Core.Dictionaries;
-using Everyday.Core.Interfaces;
-using Everyday.Core.Models;
-using Everyday.Core.Shared;
+﻿using Everyday.Application.Consumable.Interfaces;
+using Everyday.Application.Item.Interfaces;
+using Everyday.Application.Manufacturer.Interfaces;
+using Everyday.Domain.Attributes;
+using Everyday.Domain.Dictionaries;
+using Everyday.Domain.Models;
+using Everyday.Domain.Shared;
 using Everyday.GUI.Base;
 using Everyday.GUI.Utilities;
-using Everyday.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -363,36 +364,36 @@ namespace Everyday.GUI.Pages.ViewModels
                 ItemCategoryTypeId = (int)Category
             };
 
-            IConveyOperationResult response = await ExecuteItemDataChangesAsync(alteredItem);
+            //IConveyOperationResult response = await ExecuteItemDataChangesAsync(alteredItem);
 
-            if (response.StatusCode != 0)
-            {
-                IsWaitIndicatorVisible = false;
+            //if (response.StatusCode != 0)
+            //{
+            //    IsWaitIndicatorVisible = false;
 
-                await AnnounceAsync("Error", response.Message, "Ok");
-                return;
-            }
+            //    await AnnounceAsync("Error", response.Message, "Ok");
+            //    return;
+            //}
 
-            Consumable alteredConsumable = new();
-            alteredConsumable.Consume<ItemEditorViewModel, Consumable>(this);
+            //Consumable alteredConsumable = new();
+            //alteredConsumable.Consume<ItemEditorViewModel, Consumable>(this);
 
-            Item ownerItem = await itemService.GetItemByCodeAsync(Code);
-            alteredConsumable.ItemId = ownerItem.Id;
+            //Item ownerItem = await itemService.GetItemByCodeAsync(Code);
+            //alteredConsumable.ItemId = ownerItem.Id;
 
-            response = await ExecuteConsumableDataChangesAsync(alteredConsumable);
+            //response = await ExecuteConsumableDataChangesAsync(alteredConsumable);
 
-            if (response.StatusCode != 0)
-            {
-                IsWaitIndicatorVisible = false;
+            //if (response.StatusCode != 0)
+            //{
+            //    IsWaitIndicatorVisible = false;
 
-                await AnnounceAsync("Error", response.Message, "Ok");
+            //    await AnnounceAsync("Error", response.Message, "Ok");
 
-                return;
-            }
+            //    return;
+            //}
 
-            IsWaitIndicatorVisible = false;
+            //IsWaitIndicatorVisible = false;
 
-            await AnnounceAsync("Success", response.Message, "Ok");
+            //await AnnounceAsync("Success", response.Message, "Ok");
 
             CleanUp();
 
@@ -518,25 +519,25 @@ namespace Everyday.GUI.Pages.ViewModels
         #endregion
 
         #region BehaviorResolvers
-        private async Task<IConveyOperationResult> ExecuteItemDataChangesAsync(Item alteredItem)
-        {
-            if (isExistingItemAltered)
-            {
-                return await itemService.UpdateItemAsync(alteredItem);
-            }
+        //private async Task<IConveyOperationResult> ExecuteItemDataChangesAsync(Item alteredItem)
+        //{
+        //    if (isExistingItemAltered)
+        //    {
+        //        return await itemService.UpdateItemAsync(alteredItem);
+        //    }
 
-            return await itemService.CreateItemAsync(alteredItem);
-        }
+        //    return await itemService.CreateItemAsync(alteredItem);
+        //}
 
-        private async Task<IConveyOperationResult> ExecuteConsumableDataChangesAsync(Consumable alteredConsumable)
-        {
-            if (isExistingItemAltered)
-            {
-                return await consumableService.UpdateConsumableAsync(alteredConsumable);
-            }
+        //private async Task<IConveyOperationResult> ExecuteConsumableDataChangesAsync(Consumable alteredConsumable)
+        //{
+        //    if (isExistingItemAltered)
+        //    {
+        //        return await consumableService.UpdateConsumableAsync(alteredConsumable);
+        //    }
 
-            return await consumableService.CreateConsumableAsync(alteredConsumable);
-        }
+        //    return await consumableService.CreateConsumableAsync(alteredConsumable);
+        //}
 
         private void ResolveEditorGroupsVisibility()
         {

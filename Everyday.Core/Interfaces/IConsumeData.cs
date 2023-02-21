@@ -1,4 +1,4 @@
-﻿namespace Everyday.Core.Interfaces
+﻿namespace Everyday.Domain.Interfaces
 {
     /// <summary>
     /// Provides methods to consume data from ConsumableAttribute marked members.

@@ -1,4 +1,4 @@
-﻿using Everyday.Core.Attributes;
+﻿using Everyday.Domain.Attributes;
 using Everyday.GUI.Base;
 using System.Windows.Input;
 

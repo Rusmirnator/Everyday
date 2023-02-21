@@ -20,14 +20,14 @@ namespace Everyday.GUI.Base
         {
             if (!string.IsNullOrEmpty(cancelText))
             {
-                await Application.Current.MainPage.DisplayAlert(title, message, acceptText, cancelText);
+                await App.Current.MainPage.DisplayAlert(title, message, acceptText, cancelText);
             }
-            await Application.Current.MainPage.DisplayAlert(title, message, acceptText);
+            await App.Current.MainPage.DisplayAlert(title, message, acceptText);
         }
 
         protected static async Task<string> DecideAsync(string title, string cancelText, params string[] args)
         {
-            return await Application.Current.MainPage.DisplayActionSheet(title, cancelText, null, args);
+            return await App.Current.MainPage.DisplayActionSheet(title, cancelText, null, args);
         }
         #endregion
 

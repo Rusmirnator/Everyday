@@ -1,8 +1,8 @@
-﻿using Everyday.Core.Interfaces;
-using Everyday.Core.Models;
-using Everyday.Core.Shared;
-using Everyday.Data.Interfaces;
+﻿using Everyday.Data.Interfaces;
 using Everyday.Data.Utilities;
+using Everyday.Domain.Interfaces;
+using Everyday.Domain.Models;
+using Everyday.Domain.Shared;
 
 namespace Everyday.Data.DataProviders
 {

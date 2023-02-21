@@ -1,5 +1,5 @@
-﻿using Everyday.Core.Attributes;
-using Everyday.Core.Dictionaries;
+﻿using Everyday.Domain.Attributes;
+using Everyday.Domain.Dictionaries;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Reflection;

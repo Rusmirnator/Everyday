@@ -1,6 +1,6 @@
-﻿using Everyday.Core.Interfaces;
-using Everyday.Core.Models;
-using Everyday.Data.Interfaces;
+﻿using Everyday.Data.Interfaces;
+using Everyday.Domain.Interfaces;
+using Everyday.Domain.Models;
 using Everyday.Services.Interfaces;
 
 namespace Everyday.Services.Services

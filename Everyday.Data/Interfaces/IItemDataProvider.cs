@@ -1,5 +1,5 @@
-﻿using Everyday.Core.Interfaces;
-using Everyday.Core.Models;
+﻿using Everyday.Domain.Interfaces;
+using Everyday.Domain.Models;
 
 namespace Everyday.Data.Interfaces
 {

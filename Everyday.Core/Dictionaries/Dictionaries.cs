@@ -1,4 +1,4 @@
-﻿namespace Everyday.Core.Dictionaries
+﻿namespace Everyday.Domain.Dictionaries
 {
     public enum AesType
     {

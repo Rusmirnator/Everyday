@@ -1,6 +1,6 @@
-﻿using Everyday.Core.Shared;
+﻿using Everyday.Domain.Shared;
 
-namespace Everyday.Core.Models
+namespace Everyday.Domain.Models
 {
     public class Consumable : DataTransferObject
     {

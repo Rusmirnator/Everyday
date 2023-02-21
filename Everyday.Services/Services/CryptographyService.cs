@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text;
-using Everyday.Core.Dictionaries;
+using Everyday.Domain.Dictionaries;
 
 namespace Everyday.Services.Services
 {

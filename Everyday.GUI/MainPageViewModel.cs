@@ -1,16 +1,13 @@
 ﻿using Everyday.GUI.Base;
 using System.Windows.Input;
-using Everyday.Services.Interfaces;
-using Everyday.Core.Interfaces;
-using Everyday.Core.Attributes;
 using Everyday.GUI.Utilities;
+using Everyday.Domain.Attributes;
 
 namespace Everyday.GUI
 {
     public class MainPageViewModel : BaseViewModel
     {
         #region Fields & Properties
-        private readonly IAuthorizationService authorizationService;
         public bool IsWaitIndicatorVisible
         {
             get { return GetValue<bool>(); }
@@ -45,13 +42,12 @@ namespace Everyday.GUI
         #endregion
 
         #region CTOR
-        public MainPageViewModel(IAuthorizationService authorizationService)
+        public MainPageViewModel()
         {
             LoginCommand = new BindableAsyncCommand(async
                 () => await LoginAsync(),
                 () => CanLogin(),
                 (exception) => ThrowException(exception));
-            this.authorizationService = authorizationService;
         }
         #endregion
 
@@ -61,18 +57,18 @@ namespace Everyday.GUI
         {
             IsWaitIndicatorVisible = true;
 
-            IConveyOperationResult res = await authorizationService
-                                                    .AcquireCredentialsAsync(Login, Password)
-                                                        .ConfigureAwait(true);
+            //IConveyOperationResult res = await authorizationService
+            //                                        .LoginAsync(Login, Password)
+            //                                            .ConfigureAwait(true);
 
             IsWaitIndicatorVisible = false;
 
-            if (res.StatusCode != 0)
-            {
-                await AnnounceAsync("Error", res.Message, "Ok");
+            //if (res.StatusCode != 0)
+            //{
+            //    await AnnounceAsync("Error", res.Message, "Ok");
 
-                return;
-            }
+            //    return;
+            //}
 
             await Shell.Current.GoToAsync("Menu");
         }

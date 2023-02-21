@@ -1,4 +1,4 @@
-﻿using Everyday.Core.Interfaces;
+﻿using Everyday.Domain.Interfaces;
 
 namespace Everyday.Data.Interfaces
 {

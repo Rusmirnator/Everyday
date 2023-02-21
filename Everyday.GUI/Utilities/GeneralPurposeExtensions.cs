@@ -1,4 +1,4 @@
-﻿using Everyday.Core.Shared;
+﻿using Everyday.Domain.Shared;
 
 namespace Everyday.GUI.Utilities
 {

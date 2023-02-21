@@ -1,4 +1,4 @@
-﻿namespace Everyday.Services.Interfaces
+﻿namespace Everyday.Application.Common.Interfaces.Services
 {
     public interface ICryptographyService
     {

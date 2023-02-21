@@ -1,7 +1,7 @@
-﻿using Everyday.Core.Shared;
+﻿using Everyday.Domain.Shared;
 using System.ComponentModel.DataAnnotations;
 
-namespace Everyday.Core.Models
+namespace Everyday.Domain.Models
 {
     public class Item : DataTransferObject
     {

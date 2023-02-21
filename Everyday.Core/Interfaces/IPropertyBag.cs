@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 
-namespace Everyday.Core.Interfaces
+namespace Everyday.Domain.Interfaces
 {
     /// <summary>
     /// Provides controlled-lifetime access do class properties.

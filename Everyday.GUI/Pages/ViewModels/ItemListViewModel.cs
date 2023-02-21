@@ -1,8 +1,8 @@
-﻿using Everyday.Core.Attributes;
-using Everyday.Core.Models;
+﻿using Everyday.Application.Item.Interfaces;
+using Everyday.Domain.Attributes;
+using Everyday.Domain.Models;
 using Everyday.GUI.Base;
 using Everyday.GUI.Base.Interfaces;
-using Everyday.Services.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace Everyday.GUI.Pages.ViewModels

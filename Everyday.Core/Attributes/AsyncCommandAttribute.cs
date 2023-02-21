@@ -1,4 +1,4 @@
-﻿namespace Everyday.Core.Attributes
+﻿namespace Everyday.Domain.Attributes
 {
     /// <summary>
     /// Provides info for BindableBase to fetch marked method and create BindableAsyncCommand
