@@ -2,7 +2,7 @@
 
 namespace Everyday.Application.Common.Interfaces.Services
 {
-    public interface IHttpService : IOptions
+    public interface IHttpService
     {
         public Task<HttpResponseMessage> GetAsync<T>();
         public Task<HttpResponseMessage> PostAsync<T>();

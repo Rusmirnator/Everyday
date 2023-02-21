@@ -1,6 +1,7 @@
 ﻿using Everyday.Application;
 using Everyday.GUI.Base;
 using Everyday.GUI.Pages.ViewModels;
+using Everyday.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
@@ -22,17 +23,18 @@ public static class MauiProgram
             .Configuration
             .AddJsonFile(new EmbeddedFileProvider(Assembly.GetExecutingAssembly()), "appsettings.json", optional: false, false);
 
-        ConfigureServices(builder.Services);
+        ConfigureServices(builder.Services, builder.Configuration);
         ConfigureServiceProvider(builder.Services);
 
         return builder.Build();
     }
 
-    private static void ConfigureServices(IServiceCollection services)
+    private static void ConfigureServices(IServiceCollection services, IConfiguration config)
     {
         services.AddLogging()
                 .AddViewModels()
-                .AddApplicationServices();
+                .AddApplicationServices()
+                .AddInfrastructureServices(config);
     }
 
     private static void ConfigureServiceProvider(IServiceCollection services)
