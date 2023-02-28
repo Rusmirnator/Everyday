@@ -1,13 +1,11 @@
-﻿using Everyday.Application.Common.Interfaces.Structures;
-
-namespace Everyday.Application.Common.Interfaces.Services
+﻿namespace Everyday.Application.Common.Interfaces.Services
 {
     public interface IHttpService
     {
-        public Task<HttpResponseMessage> GetAsync<T>();
-        public Task<HttpResponseMessage> PostAsync<T>();
-        public Task<HttpResponseMessage> PutAsync<T>();
-        public Task<HttpResponseMessage> PatchAsync<T>();
-        public Task<HttpResponseMessage> DeleteAsync<T>();
+        public Task<HttpResponseMessage> GetAsync(string endpoint);
+        public Task<HttpResponseMessage> PostAsync<T>(string endpoint, T requestModel) where T : class;
+        public Task<HttpResponseMessage> PutAsync<T>(string endpoint, T requestModel) where T : class;
+        public Task<HttpResponseMessage> PatchAsync<T>(string endpoint, T requestModel) where T : class;
+        public Task<HttpResponseMessage> DeleteAsync(string endpoint);
     }
 }

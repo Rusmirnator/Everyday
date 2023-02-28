@@ -2,7 +2,6 @@
 using Everyday.Infrastructure.Common.DataAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
 
 namespace Everyday.Infrastructure
 {

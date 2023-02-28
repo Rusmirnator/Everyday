@@ -1,6 +1,4 @@
-﻿using Everyday.Application.Common.Interfaces.Structures;
-
-namespace Everyday.Infrastructure.Common.DataAccess
+﻿namespace Everyday.Infrastructure.Common.DataAccess
 {
     public class HttpClientConfiguration
     {
